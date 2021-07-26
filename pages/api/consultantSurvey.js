@@ -32,9 +32,9 @@ const consultantSurvey = async (req, res) => {
     } = req.body;
 
     try {
-      const check = await ConsultantSurvey.find({ appointmentId });
+      const check = await ConsultantSurvey.findOne({ appointmentId });
       console.log("Check: ", check);
-      if (check.length) {
+      if (check) {
         res.status(404).json({ message: "Survey already submitted!" });
       } else {
         var newSurvey = new ConsultantSurvey({
