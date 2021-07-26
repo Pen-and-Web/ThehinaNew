@@ -41,12 +41,16 @@ const transporter = nodemailer.createTransport({
 let uniqueFileName = null;
 
 const saveFile = async (file) => {
-  const data = fs.readFileSync(file.path);
-  uniqueFileName = `${Date.now()}-${file.name}`;
-  console.log(uniqueFileName, "NAME FILE");
-  fs.writeFileSync(`./public/uploads/${uniqueFileName}`, data);
-  await fs.unlinkSync(file.path);
-  //return;
+  //console.log("file:",file)
+  if(file !== undefined && file?.name !== ''){
+    const data = fs.readFileSync(file.path);
+    uniqueFileName = `${Date.now()}-${file.name}`;
+    console.log(uniqueFileName, "NAME FILE");
+    fs.writeFileSync(`./public/uploads/${uniqueFileName}`, data);
+    await fs.unlinkSync(file.path);
+    //return;
+  }
+  
 };
 
 //register.use(uploading);
@@ -64,6 +68,7 @@ const register = async (req, res) => {
         //   res.writeHead(200, { "content-type": "application/json" });
         req.body = fields;
         req.files = files;
+        // console.log("files: ",files);
         // uploading(req, res, function (err) {
         //   //const { name } = req.body;
         //   //console.log("Uploading Body: ", name);
