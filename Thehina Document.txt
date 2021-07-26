@@ -1,0 +1,36 @@
+Zoom:
+
+SDK Key: EdWWFVlRmAXRYY2yfcdUxx5wWba8RpUyLl7r
+SDK Secret: zR1xYk8h3JANr1L3tnm7hIy0J30PYc7IzjCA
+
+gmail: thehinaa@gmail.com
+password: thehina_pnw
+
+1-There is no button on the Calendar page to return to the previous page or to proceed as a submission.
+5-When some fields were left blank, no error messages were issued.
+17- The survey pages. (they will be sent in the email, they are not available in the application)
+5-When some fields were left blank, no error messages were issued.
+3-The country key should be included in the mobile number validation.
+12-Email with zoom link is sent to the customer (but before payment).
+13-How to create and reset admin user sign-up and sign-in credentials? (Answer: Admin can not signup, because if admin has to signup, who will approve the admin? admin can only change password.)
+18-The user does not need approval but still needs control to suspend if needed.
+
+
+1-There is no button on the Calendar page to return to the previous page or to proceed as a submission.(DONE)
+2-The booking consultant's summary should be the same size for all consultants. (DONE)
+3-The country key should be included in the mobile number validation.(DONE)							
+4-The consultant IBAN should be entered on the consultant side page rather than on the registration page after the admin approves the consultant.(DONE)
+5-When some fields were left blank, no error messages were issued.(DONE)							
+6-The validation of IBANs should be consistent with Saudi banks.(Format to be provided by the Client)
+7-Need consultant notice that admen permission is required while registering as a consultant for the first time.(DONE: Notice sent in the email)
+8- Client count should be on the client page not on the consultant page.(DONE)						
+9-The consultant dashboard needs an editing option.(DONE)                                                                     
+10-The consultant dashboard needs consultant stats if the consultant is available or not. (NOT DONE)
+11-The consultant dashboard needs the date and time intervals to be added. (NEW REQUIREMENT)
+12-Email with zoom link is sent to the customer after payment. (ZOOM LINK SENT IN THE EMAIL)
+13- How to create and reset admin user sign-up and sign-in credentials?. (NEW REQUIREMENT)
+14-If the consultant is booked this needs to be shown on the calendar in different colors. (NOT DONE).
+15- All buttons color should be purple the same as the logo. (DONE)								  
+16- The primary key in the database is ID and email. (DONE)
+17- The survey pages. (IN PROGRESS)													  
+18-The user does not need approval but still needs control to suspend if needed. (DONE)					  
