@@ -21,7 +21,7 @@ const transporter = nodemailer.createTransport({
 
 const appointment = async (req, res) => {
   if (req.method === "POST") {
-    const { clientData, consultantData, status, startDate, endDate, slotId } =
+    const { clientData, consultantData, status, startDate, endDate, slotId, aim } =
       req.body;
 
     //console.log("Consultant Id: ", consultantData.consultantId);
@@ -46,6 +46,7 @@ const appointment = async (req, res) => {
         startDate,
         endDate,
         slotId,
+        aim
       });
       console.log(newAppointment, "newBookingRequest");
       let date = startDate.split("T", 1);
@@ -273,22 +274,21 @@ const appointment = async (req, res) => {
           subject: "Thehina: Appointment",
           html: `<h1>Appointment Details</h1>
           <table style="width:100%; border: 1px solid #dddddd">
-            <tr style="border: 1px solid #dddddd; background-color: #dddddd;">
+            <tr style="border: 1px solid #dddddd; background-color: #dddddd; text-align: left;">
               <th>Consultant Name</th>
               <th>Start Time</th>
               <th>End Time</th>
+              <th>Subject</th>
             </tr>
             <tr style="border: 1px solid #dddddd">
-              <td>Jill</td>
-              <td>Smith</td>
-              <td>50</td>
+              <td>${consultant.name}</td>
+              <td>${appointment.startDate}</td>
+              <td>${appointment.endDate}</td>
+              <td>${appointment.aim}</td>
             </tr>
-            <tr style="border: 1px solid #dddddd">
-              <td>Eve</td>
-              <td>Jackson</td>
-              <td>94</td>
-            </tr>
-          </table> 
+          </table>
+          <br/>
+          <h2>Meeting Link:</h2> 
           <a href="${response.data.join_url}">${response.data.join_url}</a>`,
         };
 
@@ -297,7 +297,24 @@ const appointment = async (req, res) => {
           to: consultant.email,
           // to: "official.farhanbhatti@gmail.com",
           subject: "Thehina: Survey",
-          html: `<h1>Appointment Link</h1><a href="${response.data.join_url}">${response.data.join_url}</a>`,
+          html: `<h1>Appointment Details</h1>
+          <table style="width:100%; border: 1px solid #dddddd">
+            <tr style="border: 1px solid #dddddd; background-color: #dddddd; text-align: left;">
+              <th>Client Name</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Subject</th>
+            </tr>
+            <tr style="border: 1px solid #dddddd">
+              <td>${client.name}</td>
+              <td>${appointment.startDate}</td>
+              <td>${appointment.endDate}</td>
+              <td>${appointment.aim}</td>
+            </tr>
+          </table>
+          <br/>
+          <h2>Meeting Link:</h2> 
+          <a href="${response.data.join_url}">${response.data.join_url}</a>`,
         };
       } catch (e) {
         console.log(e.response, "error");

@@ -22,6 +22,10 @@ var appointment = new Schema({
     type: String,
     required: false,
   },
+  aim: {
+    type: String,
+    required: false
+  },
   status: {
     type: String,
     required: false,
