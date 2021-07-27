@@ -271,7 +271,25 @@ const appointment = async (req, res) => {
           to: client.email,
           // to: "official.farhanbhatti@gmail.com",
           subject: "Thehina: Appointment",
-          html: `<h1>Appointment Link</h1><a href="${response.data.join_url}">${response.data.join_url}</a>`,
+          html: `<h1>Appointment Details</h1>
+          <table style="width:100%">
+            <tr>
+              <th>Consultant Name</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+            </tr>
+            <tr>
+              <td>Jill</td>
+              <td>Smith</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>Eve</td>
+              <td>Jackson</td>
+              <td>94</td>
+            </tr>
+          </table> 
+          <a href="${response.data.join_url}">${response.data.join_url}</a>`,
         };
 
         mailConsultant = {
@@ -302,7 +320,7 @@ const appointment = async (req, res) => {
         to: consultant.email,
         // to: "official.farhanbhatti@gmail.com",
         subject: "Thehina: Survey",
-        html: `<h1>Survey Link</h1><a href="http://206.189.52.233:3000/survey/${appointment._id}">http://206.189.52.233:3000/survey/${appointment._id}</a>`,
+        html: `<h1>Survey Link</h1><a href="http://206.189.52.233:3000/consultantsurvey/${appointment._id}">http://206.189.52.233:3000/consultantsurvey/${appointment._id}</a>`,
         // html: `<h1>Survey Link</h1><a href="http://localhost:3000/survey/${appointment._id}">http://localhost:3000/survey/${appointment._id}</a>`,
       };
     }
