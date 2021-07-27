@@ -272,18 +272,18 @@ const appointment = async (req, res) => {
           // to: "official.farhanbhatti@gmail.com",
           subject: "Thehina: Appointment",
           html: `<h1>Appointment Details</h1>
-          <table style="width:100%">
-            <tr>
+          <table style="width:100%; border: 1px solid #dddddd">
+            <tr style="border: 1px solid #dddddd; background-color: #dddddd;">
               <th>Consultant Name</th>
               <th>Start Time</th>
               <th>End Time</th>
             </tr>
-            <tr>
+            <tr style="border: 1px solid #dddddd">
               <td>Jill</td>
               <td>Smith</td>
               <td>50</td>
             </tr>
-            <tr>
+            <tr style="border: 1px solid #dddddd">
               <td>Eve</td>
               <td>Jackson</td>
               <td>94</td>

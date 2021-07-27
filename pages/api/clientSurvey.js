@@ -35,7 +35,7 @@ const clientSurvey = async (req, res) => {
       const check = await ClientSurvey.findOne({appointmentId });
       console.log("Check: ", check);
       if (check) {
-        res.status(200).json({ message: "Survey already submitted!" });
+        res.status(201).json({ message: "Survey already submitted!" });
       } else {
         var newSurvey = new ClientSurvey({
           userId,
