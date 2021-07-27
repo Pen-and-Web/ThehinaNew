@@ -63,11 +63,27 @@ const Profile = () => {
                 >
                   <Grid container spacing={1} style={{ marginTop: "4px" }}>
                     <Grid item xs={11} md={11}>
-                      <Avatar
+                    {!userDetail.imageUrl?
+                        userDetail.gender==="Male"?
+                        <Avatar
+                        alt="profile picture"
+                        src='/maleAvatar.png'
+                        style={{ width: "170px", height: "170px" }}
+                        />                        
+                        :
+                        <Avatar
+                        alt="profile picture"                        
+                        src='/femaleAvatarThehina.png'
+                        style={{ width: "170px", height: "170px" }}
+                        />                        
+                        :                       
+                        <Avatar
                         alt="profile picture"
                         src={`${imgUrl}/${userDetail.imageUrl}`}
                         style={{ width: "170px", height: "170px" }}
                       />
+                      }
+                     
                     </Grid>
                     <Grid item xs={1} md={1} align="right">
                       <IconButton

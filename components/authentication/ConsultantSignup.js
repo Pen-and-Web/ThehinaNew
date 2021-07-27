@@ -1,24 +1,11 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import FormControl from "@material-ui/core/FormControl";
-import Input from "@material-ui/core/Input";
-import Card from "@material-ui/core/Card";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import TextField from "@material-ui/core/TextField";
-import CardActions from "@material-ui/core/CardActions";
-import axios from "axios";
-import Button from "@material-ui/core/Button";
+import {Grid, Input, Card, InputLabel, TextField, CardActions, Button, Typography, Select} from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import * as actions from "../../redux-thunk/actions";
 import { useRouter } from "next/router";
-import Typography from "@material-ui/core/Typography";
-import Select from "@material-ui/core/Select";
-import Link from "next/link";
 import CameraAltIcon from "@material-ui/icons/CameraAlt";
 import purple from "@material-ui/core/colors/purple";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +27,6 @@ const ConsultantSignup = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const router = useRouter();
-  const accent = purple["500"]; // #e040fb
 
   const submitSignup = async (
     name,
@@ -307,7 +293,7 @@ const ConsultantSignup = () => {
                 }
               }}
               error={errorName === true ? true : null}
-              helperText={errorName === true ? "Invalid Name" : null}
+              helperText={errorName === true ? "" : null}
               variant="outlined"
             />
           </Grid>

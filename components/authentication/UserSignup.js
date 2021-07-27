@@ -109,12 +109,12 @@ export const UserSignup = () => {
      if(!arabicName){
        setErrorArabicName(true)
      }
-
+     if(!image){
+       setErrorImage(true)
+     }
     }
      else{
       console.log("No error")
-
-      
       dispatch(actions.userSignup({ idType,idNumber,name, arabicName, email,password,phoneNumber,dateOfBirth,gender,region,image,role}))
       .then((response) => {
         console.log("SignUp Response: ", response);
@@ -183,18 +183,14 @@ export const UserSignup = () => {
                   type="number"
                   value={idNumber}
                   onChange={e=>{
-                    setIdNumber(e.target.value) 
-                    
+                    setIdNumber(e.target.value)                     
                     if(e.target.value.length===10){
                       setErrorIdNo(false)
                     }
                     else{
                       setErrorIdNo(true)
                     }
-                    
-                  
-                  
-                  }}
+                   }}
                   
                   fullWidth
                   style={{marginTop:"10px"}}
@@ -291,15 +287,12 @@ export const UserSignup = () => {
           
         
         <Grid item md={6}>
-            <TextField
-              
+            <TextField              
               type="password"
               label="Password"
-              value={password}
-              
+              value={password}              
               onChange={(e) => {
-                setPassword(e.target.value)
-                
+                setPassword(e.target.value)                
                 if(e.target.value.match(PASSWORD_REGEX)){
                   setPassword(e.target.value);
                   setErrorPassword(false)
@@ -370,7 +363,6 @@ export const UserSignup = () => {
                   native
                   value={countryCode}
                   error={errorCountryCode===true?true:null}
-
                   onChange={(e)=>{
                     setCountryCode(e.target.value)
                     if(!e.target.value){
@@ -378,8 +370,7 @@ export const UserSignup = () => {
                     }
                     else{
                       setErrorCountryCode(false)
-                    }            
-                  
+                    }                 
                   }}
                 >
                   <option aria-label="None" value="" />
@@ -389,32 +380,28 @@ export const UserSignup = () => {
         </Grid>
 
           <Grid item md={9} style={{ marginTop: '10px' }}> 
-        <TextField
-                     
+        <TextField                     
             label="Mobile Number"
-            type="text"
+            type="number"
             fullWidth
             style={{marginTop:"10px"}}
-            size="small"
-            
+            size="small"            
             variant="outlined"
             value={phoneNumber}
             onChange={e=>{
               setPhoneNumber(e.target.value)
               if(e.target.value.length>9){
               setErrorPhoneNumber(true)
-            }
-            
-            else{
-              setPhoneNumber(e.target.value)
-            }
-            if(e.target.value.length<=9){
-              setErrorPhoneNumber(false)
-            }
+              }            
+              else{
+                setPhoneNumber(e.target.value)
+              }
+              if(e.target.value.length<=9){
+                setErrorPhoneNumber(false)
+              }
           }}
-          error={errorPhoneNumber===true?true:null}
-          helperText={errorPhoneNumber===true?"Please provide a valid mobile number":null}
-
+           error={errorPhoneNumber===true?true:null}
+           helperText={errorPhoneNumber===true?"Please provide a valid mobile number":null}
           /> 
         </Grid>
         <Grid item md={12} style={{ marginTop: '10px' }}>
@@ -434,7 +421,6 @@ export const UserSignup = () => {
                 }
               }}
               error={errorRegion===true?true:null}
-
             >
               <option aria-label="None" value="" />
               <option value={"Riyadh"}>Riyadh</option>
@@ -442,16 +428,13 @@ export const UserSignup = () => {
               <option value={"Mecca"}>Mecca</option>
               <option value={"Madina Al Monawra"}> Madina Al Monawra </option>
               <option value={"Eastern region"}> Eastern region</option>
-              <option value={"Al Qazeem"}>Al Qazeem</option>
-
-             
+              <option value={"Al Qazeem"}>Al Qazeem</option>             
               <option value={"Aseer, Tabuk"}>Aseer, Tabuk</option>
               <option value={"Hail"}>Hail</option>
               <option value={"Northern Borders"}>Northern Borders</option>
               <option value={"Madina Al Monawra"}>Patio, Jazan</option>
               <option value={"Hoof"}>Hoof</option>
               <option value={"Najran"}>Najran</option>
-
               <option value={"Outside Saudia Arabia"}>Outside Saudia Arabia</option>
               <option value={"Outside Saudi Arabia"}>Outside Saudi Arabia</option>
               
@@ -474,6 +457,7 @@ export const UserSignup = () => {
                     onChange={(e) => {
                       setImage(e.target.files[0]);
                     }}
+                   
                   />
                 </Button>
             </Grid>
@@ -491,8 +475,7 @@ export const UserSignup = () => {
                     fullWidth
                     style={{marginTop: "8px",color:"white",backgroundColor:"#7b40c0"}}
                     type="submit"
-                    onClick={() => {
-                     
+                    onClick={() => {                     
                       submitSignup(idType,idNumber,name, arabicName, email,password,phoneNumber,dateOfBirth,gender,region,"User")}}
                   >
                     Sign Up
