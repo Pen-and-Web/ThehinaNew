@@ -78,7 +78,6 @@ const ViewSchedule = () =>{
     const scheduleRecords = useSelector(state=>{ return state.consultantReducer.scheduleDetails}); 
     
     useEffect(()=>{
-      console.log("hjubjhbh")
       getAppointment()}
       ,[previewOnUpdateRecord])
     

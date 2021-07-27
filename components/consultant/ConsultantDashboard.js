@@ -252,11 +252,27 @@ export default function ConsultantDashboard(props) {
                   Consultant
                 </Typography>
                 {/* <Avatar alt="profile picture" src={`${imgUrl}/${userDetail.user.imageUrl}`} className={classes.large} /> */}
-                <Avatar
-                  alt="profile picture"
-                  src={`${imgUrl}/${userInfo.imageUrl}`}
-                  className={classes.large}
-                />
+                {!userInfo.imageUrl?
+                        userInfo.gender==="male"?
+                        <Avatar
+                        alt="profile picture"
+                        src='/maleAvatar.png'
+                        style={{ width: "50px", height: "50px" }}
+                        />                        
+                        :
+                        <Avatar
+                        alt="profile picture"                        
+                        src='/femaleAvatarThehina.png'
+                        style={{ width: "50px", height: "50px" }}
+                        />                        
+                        :                       
+                        <Avatar
+                        alt="profile picture"
+                        src={`${imgUrl}/${userInfo.imageUrl}`}
+                        className={classes.large}
+                      />
+                      }
+               
                 {/* <Avatar alt="profile picture" src={`http://206.189.52.233/1624276877258-young-doctor-16088825.jpg`} className={classes.large} /> */}
                 {console.log("NO error", userInfo.imageUrl)}
               </IconButton>

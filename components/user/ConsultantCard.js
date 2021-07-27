@@ -76,17 +76,31 @@ const ConsultantCard = () => {
               data.map((postItem, index) => (
                 <Grid item md={4} key={postItem._id}>
                   <Card elevation={3} style={{ maxWidth: "300px",maxHeight:"550px" }}>
-                    {
-                      // / <span style={{display:'flex',justifyContent:'center'}}> /
-                    }
+                   
                     <CardActionArea className={classes.media}>
-                      <img
-                        style={{ maxWidth: "300px", objectFit: "cover" }}
-                        src={`${imgUrl}/${postItem.imageUrl}`}
-                        title="consult"
-                      />
+                      {!postItem.imageUrl?
+                            postItem.gender === "Male" ?
+                              <img
+                                style={{ maxWidth: "300px", objectFit: "cover" }}
+                                src='/maleAvatar.png'
+                                title="male"
+                              />
+                            :
+                              <img
+                                style={{ maxWidth: "300px", objectFit: "cover" }}
+                                src='/femaleAvatarThehina.png'
+                                title="female"
+                              />
+                          :
+                          <img
+                            style={{ maxWidth: "300px", objectFit: "cover" }}
+                            src={`${imgUrl}/${postItem.imageUrl}`}
+                            title="consult"
+                          />
+                      }
+                     
                     </CardActionArea>
-                    {/* </span>  */}
+                   
                     <CardActionArea>
                       <CardContent>
                         <Typography

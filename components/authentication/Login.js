@@ -23,20 +23,6 @@ import NProgress from "nprogress";
 import ResetPassword from "./ResetPassword";
 import { Alert, AlertTitle } from "@material-ui/lab";
 
-Router.onRouteChangeStart = () => {
-  console.log("onRouteChangeStart triggered");
-  NProgress.start();
-};
-
-Router.onRouteChangeComplete = () => {
-  console.log("onRouteChangeComplete triggered");
-  NProgress.done();
-};
-
-Router.onRouteChangeError = () => {
-  console.log("onRouteChangeError triggered");
-  NProgress.done();
-};
 const styles = (theme) => ({
   root: {
     margin: 0,
@@ -104,9 +90,7 @@ const Login = () => {
         "Currently you can not sign in to this application!"
           ? setOpen(true)
           : null;
-        // response.error?setAlert(true):null;
-        // setResponseMessage(response.error.error)
-
+        
         if (response.role === "User") {
           setLoader(true);
           router.push("/thehina");
