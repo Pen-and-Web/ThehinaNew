@@ -13,7 +13,7 @@ module.exports = {
       "followSymlinks": false
     },
       instances: 5,
-      autorestart: true,
+      autorestart: false,
       watch: false,
       max_memory_restart: "1G",
      }],
