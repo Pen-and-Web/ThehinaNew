@@ -75,13 +75,14 @@ const ConsultantCard = () => {
             {data.length > 0 ? (
               data.map((postItem, index) => (
                 <Grid item md={4} key={postItem._id}>
+          
                   <Card elevation={3} style={{ maxWidth: "300px",maxHeight:"550px" }}>
-                   
-                    <CardActionArea className={classes.media}>
+                  
+                    <CardActionArea style={{height: "300px", alignItems: "center"}}>
                       {!postItem.imageUrl?
                             postItem.gender === "Male" ?
                               <img
-                                style={{ maxWidth: "300px", objectFit: "cover" }}
+                                style={{ maxWidth: "300px", objectFit: "cover", }}
                                 src='/maleAvatar.png'
                                 title="male"
                               />
@@ -109,7 +110,8 @@ const ConsultantCard = () => {
                           component="h2"
                           style={{ textAlign: "center",height:'32px' }}
                         >
-                          {postItem.name.slice(0,10)}
+                          {(postItem.name.length > 14) ? `${postItem.name.slice(0,15)}...` : postItem.name  }
+
                         </Typography>
                         <Typography
                           gutterBottom
@@ -127,7 +129,7 @@ const ConsultantCard = () => {
                           component="p"
                           style={{ textAlign: "center",height:'20px' }}
                         >
-                          {postItem.summaryOfExpertise.slice(0,20)?postItem.summaryOfExpertise.slice(0,100):postItem.summaryOfExpertise}
+                          {postItem.summaryOfExpertise.length > 100 ? `${postItem.summaryOfExpertise.slice(0,100)}...` : postItem.summaryOfExpertise}
                         </Typography>
                       </CardContent>
                     </CardActionArea>
