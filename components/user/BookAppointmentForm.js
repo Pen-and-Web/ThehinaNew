@@ -186,7 +186,7 @@ const BookAppointmentForm = () => {
           <Typography variant="body2" gutterBottom>
            Appointment has been created.
           </Typography>
-          <center><Button align="center" color="primary" onClick={()=>{setComponent('checkOut')}}>Submit</Button></center>
+          <center><Button align="center" color="primary" onClick={()=>{setOpen(false)}}>Submit</Button></center>
         </DialogContent>
            </Dialog>
           <Card style={{ padding: "10px", border: "1px solid #DADCE0" }} elevation={3}>

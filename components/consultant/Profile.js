@@ -2,19 +2,20 @@ import React, { useEffect, useState } from "react";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography,TextField } from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+import {ListItemText,InputLabel} from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 import UpdateProfile from "./UpdateProfile";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { imgUrl } from "../../env";
+import BankAccount from './BankAccount'
 const useStyles = makeStyles((theme) => ({
   link: {
     display: "flex",
@@ -85,7 +86,7 @@ const Profile = () => {
                       }
                      
                     </Grid>
-                    <Grid item xs={1} md={1} align="right">
+                    <Grid item  md={1} align="right">
                       <IconButton
                         align="right"
                         onClick={() => {
@@ -97,7 +98,7 @@ const Profile = () => {
                     </Grid>
                     <Grid
                       item
-                      xs={6}
+                      xs={12}
                       md={6}
                       style={{ marginTop: "10px", backgroundColor: "#F8F8F8" }}
                     >
@@ -150,7 +151,7 @@ const Profile = () => {
 
                     <Grid
                       item
-                      xs={6}
+                      xs={12}
                       md={6}
                       style={{
                         marginTop: "10px",
@@ -203,7 +204,18 @@ const Profile = () => {
                 </Paper>
               </Grid>
 
-              <Grid item md={6} xs={6}></Grid>
+              <Grid item md={6} xs={6}>
+              {userDetail.IBAN===""?
+                   <BankAccount />
+              :
+              null           
+              }
+                  
+                    
+                 
+              
+              </Grid>
+                  
 
               <Grid item md={6} xs={12}>
                 <Paper

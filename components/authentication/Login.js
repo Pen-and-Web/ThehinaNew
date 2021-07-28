@@ -195,6 +195,7 @@ const Login = () => {
               marginTop: "12px",
               color: "white",
               backgroundColor: "#7b40c0",
+              textTransform:"capitalize"
             }}
             disabled={!email || !password}
             onClick={() => submitSignin(email, password)}
@@ -217,7 +218,7 @@ const Login = () => {
         ) : null}
         <CardActions style={{ justifyContent: "center" }}>
           <Button
-            style={{ marginTop: "12px", color: "#7b40c0" }}
+            style={{ marginTop: "12px", color: "#7b40c0",textTransform:"capitalize" }}
             onClick={() => router.push("/signup")}
           >
             Don't have an account? Sign up.
@@ -225,7 +226,7 @@ const Login = () => {
         </CardActions>
         <CardActions style={{ justifyContent: "center" }}>
           <Button
-            style={{ color: "#DA71D4" }}
+            style={{ color: "#DA71D4",textTransform:"capitalize" }}
             onClick={() => router.push("/resetpassword")}
           >
             Forgotten account?
