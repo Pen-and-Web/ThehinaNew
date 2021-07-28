@@ -94,7 +94,6 @@ export const ViewConsultantAppointment = ({userId}) => {
     const handleClose = () => {
         setOpen(false);
     };
-        console.log(userId,"id is")
     const [appointmentDetail,setAppointmentDetail] = useState([]);
     const [feedback,setFeedback] = useState("");
 

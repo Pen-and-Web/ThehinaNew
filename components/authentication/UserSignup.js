@@ -1,20 +1,11 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import FormControl from "@material-ui/core/FormControl";
-import Input from "@material-ui/core/Input";
-import Card from "@material-ui/core/Card";
+import {Grid,FormControl,Input,Card,Paper,TextField,Button,Typography,InputLabel,Select,CircularProgress} from "@material-ui/core";
 import Image from 'next/image'
-import TextField from '@material-ui/core/TextField';
-import Button from "@material-ui/core/Button";
 import { useDispatch } from "react-redux";
 import * as actions from "../../redux-thunk/actions";
 import { useRouter } from "next/router";
-import Typography from "@material-ui/core/Typography";
-import { CardActions, CardContent } from "@material-ui/core";
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import Link from 'next/link'
+import { CardActions, CardContent, Divider } from "@material-ui/core";
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import axios from 'axios';
 
@@ -69,13 +60,20 @@ export const UserSignup = () => {
 
   const [region, setRegion] = useState('');
   const [errorRegion,setErrorRegion] = useState(false);
+  const [loader,setLoader] = useState(false);
 
+  const [btnDisable,setBtnDisable] = useState(false);
 
   const submitSignup = async (idType,idNumber,name, arabicName, email,password,phoneNumber,dateOfBirth,gender,region,role) => {
+    setLoader(true);
+    setBtnDisable(true);
     //concatinate country code with phone Number
     phoneNumber=countryCode+phoneNumber;
 
     if(errorIdNo===true||errorName===true|| errorPhoneNumber===true||  errorEmail===true|| errorPassword===true || errorGender===true || idType==="" ||  idNumber===""|| name===""|| arabicName==="" || email==="" || password===""|| gender==="" ||phoneNumber==="" || region==="" || dateOfBirth==="" ){
+      setLoader(false);
+      setBtnDisable(false);
+
       if(!idType) {
         setErrorIdType(true)
      }
@@ -117,14 +115,31 @@ export const UserSignup = () => {
       console.log("No error")
       dispatch(actions.userSignup({ idType,idNumber,name, arabicName, email,password,phoneNumber,dateOfBirth,gender,region,image,role}))
       .then((response) => {
+        setLoader(false);
+        setBtnDisable(false);
+        if(response.token){          
+          router.push("/");
+        }       
         console.log("SignUp Response: ", response);
-        router.push("/");
       })
       .catch((error) => {
+        setLoader(false);
         console.log("SignUp Error: ", error);
       });
     }
-    
+
+    // userIdType.value="";
+    // userIdNumber.value="";
+    // userEName.value="";
+    // userAName.value="";
+    // userEmail.value="";
+    // userPassword.value="";
+    // userDate.value="";
+    // userGender.value="";
+    // userCountryCode.value="";
+    // userMobileNumber.value="";
+    // userRegion.value="";
+    // userImage.value="";
   };
 
   
@@ -135,7 +150,7 @@ export const UserSignup = () => {
 
   return (
     <>
-      <Card style={{ padding: "10px", border: "1px solid #DADCE0" }}>
+      <Paper elevation={3} style={{ padding: "10px", border: "1px solid #DADCE0" }}>
       <Typography   align="center">
        <img
             src="https://thehina.com/assets/img/logo/logo.png"
@@ -146,20 +161,21 @@ export const UserSignup = () => {
       <Typography
           variant="h5"
           component="h2"
-          style={{color:"#7b40c0",marginTop:'20px',marginBottom:'10px'}}
           align="center"
-        >
-          Create User Account
+          style={{color:"#7b40c0",marginTop:'20px',marginBottom:'10px',padding:'10px'}}          
+        >Create Your Customer Account          
         </Typography>  
-     
-        <Grid container  spacing={2} style={{padding:"20px"}} >
+        
+        <Grid container  spacing={1} style={{padding:"18px"}} >
           
         <Grid item md={3}>
                 <InputLabel htmlFor="idType">Id Type</InputLabel>
                     <Select
                       fullWidth
                       native
+                      id="userIdType"
                       value={idType}
+
                       onChange={e=>{setIdType(e.target.value)
                         if(!e.target.value){
                           setErrorIdType(true)
@@ -180,6 +196,7 @@ export const UserSignup = () => {
         <Grid item md={9}>
                 <TextField
                   label="Id Number"
+                  id="userIdNumber"
                   type="number"
                   value={idNumber}
                   onChange={e=>{
@@ -205,7 +222,7 @@ export const UserSignup = () => {
           <Grid item  md={6}>
         <TextField          
               label="Full Name in English"
-                           
+              id="userEName"             
               fullWidth
               style={{marginTop:"10px"}}
               size="small"
@@ -229,6 +246,7 @@ export const UserSignup = () => {
         <Grid item md={6}>
             <TextField
               label="Full Name in Arabic"
+              id="userAName"
               type="text"
               fullWidth
               style={{ marginTop: "10px" }}
@@ -257,7 +275,7 @@ export const UserSignup = () => {
         <TextField
              label="Email"
              type="email"
-             
+             id="userEmail"
              value={email}
              onChange={(e) =>  {
                setEmail(e.target.value)
@@ -290,6 +308,7 @@ export const UserSignup = () => {
             <TextField              
               type="password"
               label="Password"
+              id="userPassword"
               value={password}              
               onChange={(e) => {
                 setPassword(e.target.value)                
@@ -313,7 +332,7 @@ export const UserSignup = () => {
           </Grid>
           <Grid item md={6} style={{ marginTop: '10px' }}>
           <TextField
-              id="date"
+              id="userDate"
               label="DOB"
               type="date"              
               fullWidth   
@@ -336,6 +355,7 @@ export const UserSignup = () => {
             <InputLabel htmlFor="Gender">Gender</InputLabel>
             <Select
               fullWidth
+              id="userGender"
               native
               value={gender}
               error={errorGender===true?true:null}
@@ -361,6 +381,7 @@ export const UserSignup = () => {
                 <Select
                   fullWidth
                   native
+                  id="userCountryCode"
                   value={countryCode}
                   error={errorCountryCode===true?true:null}
                   onChange={(e)=>{
@@ -382,6 +403,7 @@ export const UserSignup = () => {
           <Grid item md={9} style={{ marginTop: '10px' }}> 
         <TextField                     
             label="Mobile Number"
+            id="userMobileNumber"
             type="number"
             fullWidth
             style={{marginTop:"10px"}}
@@ -390,15 +412,13 @@ export const UserSignup = () => {
             value={phoneNumber}
             onChange={e=>{
               setPhoneNumber(e.target.value)
-              if(e.target.value.length>9){
-              setErrorPhoneNumber(true)
+              if(e.target.value.length===9){
+                setErrorPhoneNumber(false)
               }            
               else{
-                setPhoneNumber(e.target.value)
+                setErrorPhoneNumber(true)
               }
-              if(e.target.value.length<=9){
-                setErrorPhoneNumber(false)
-              }
+              
           }}
            error={errorPhoneNumber===true?true:null}
            helperText={errorPhoneNumber===true?"Please provide a valid mobile number":null}
@@ -409,7 +429,7 @@ export const UserSignup = () => {
             <Select
               fullWidth
               native
-              
+              id="userRegion"
               value={region}
               onChange={(e)=>{
                 setRegion(e.target.value)
@@ -450,8 +470,10 @@ export const UserSignup = () => {
                   >
                   <CameraAltIcon />
                   <input
+                    id="userImage"
                     type="file"
                     hidden
+                    defaultValue={image}
                     multiple
                     accept="image/*"
                     onChange={(e) => {
@@ -470,28 +492,41 @@ export const UserSignup = () => {
 
             <Grid item md={12}>
             <CardActions style={{justifyContent:'center'}}>
+              {btnDisable===false?
                   <Button
-                    variant="contained" color="primary"
-                    fullWidth
-                    style={{marginTop: "8px",color:"white",backgroundColor:"#7b40c0"}}
-                    type="submit"
-                    onClick={() => {                     
-                      submitSignup(idType,idNumber,name, arabicName, email,password,phoneNumber,dateOfBirth,gender,region,"User")}}
-                  >
-                    Sign Up
-                  </Button>
+                  variant="contained" color="primary"
+                  fullWidth
+                  style={{marginTop: "8px",color:"white",backgroundColor:"#7b40c0",textTransform:"capitalize"}}
+                  type="submit"
+                  onClick={() => {                     
+                    submitSignup(idType,idNumber,name, arabicName, email,password,phoneNumber,dateOfBirth,gender,region,"User")}}
+                >
+                  Sign Up
+                </Button>
+                :
+                <Button
+                  variant="contained" color="primary"
+                  fullWidth
+                  style={{marginTop: "8px",color:"white",backgroundColor:"#7b40c0",textTransform:"capitalize"}}
+                >
+                  Sign Up
+                </Button>               
+            }
+                  
                   </CardActions>
-                
+                  {loader === true ? (
+                        <center>
+                          <CircularProgress color="primary" />
+                        </center>
+                      ) : null}
                   <CardContent>
                   <Typography variant="body2" gutterBottom style={{color:'#A599B2',marginTop:'-7px'}}>By creating an account, you agree to our Terms & conditions and Privacy policy</Typography>
                   </CardContent>
               
-                <CardActions style={{justifyContent:'center'}}>
-               
-               
+                <CardActions style={{justifyContent:'center'}}>               
                   <Button
                     fullWidth
-                    style={{ marginTop: "12px",backgroundColor:'#E0E0E0',color:'#7b40c0' }}
+                    style={{ marginTop: "10px",backgroundColor:'#E0E0E0',color:'#7b40c0',textTransform:"capitalize" }}
                     onClick={() => router.push("/signup/consultant")}
                   >
                     Register as Consultant
@@ -500,7 +535,7 @@ export const UserSignup = () => {
                 </CardActions>
                 <CardActions style={{ justifyContent: "center" }}>
                     <Button
-                        style={{ marginTop: "12px",color:"#DA71D4" }}
+                        style={{ marginTop: "10px",color:"#DA71D4",textTransform:"capitalize" }}
                         onClick={() => router.push("/login")}
                       >
                         Already have an account?
@@ -513,7 +548,7 @@ export const UserSignup = () => {
         </Grid>
         
      
-      </Card>
+      </Paper>
     </>
   );
 };

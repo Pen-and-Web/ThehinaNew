@@ -1,11 +1,63 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {Grid, Input, Card, InputLabel, TextField, CardActions, Button, Typography, Select} from "@material-ui/core";
+import {Grid, Input, Card, InputLabel, TextField, CardActions, Button, Typography, Select, Paper,CircularProgress} from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import * as actions from "../../redux-thunk/actions";
 import { useRouter } from "next/router";
 import CameraAltIcon from "@material-ui/icons/CameraAlt";
 import purple from "@material-ui/core/colors/purple";
+import Dialog from "@material-ui/core/Dialog";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import MuiDialogContent from "@material-ui/core/DialogContent";
+import MuiDialogActions from "@material-ui/core/DialogActions";
+import { withStyles } from "@material-ui/core/styles";
+import grey from "@material-ui/core/colors/grey";
+import Alert from '@material-ui/lab/Alert';
+
+
+const styles = (theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(2),
+  },
+  closeButton: {
+    position: "absolute",
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+});
+
+const DialogTitle = withStyles(styles)((props) => {
+  const { children, classes, onClose, ...other } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          className={classes.closeButton}
+          onClick={onClose}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
+const DialogContent = withStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}))(MuiDialogContent);
+
+const DialogActions = withStyles((theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(1),
+  },
+}))(MuiDialogActions);
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,7 +98,8 @@ const ConsultantSignup = () => {
     role
   ) => {
     phoneNumber = countryCode + phoneNumber;
-
+    setLoader(true);
+    setBtnDisable(true);
     setDisable(true);
     if (
       errorIdType === true ||
@@ -75,6 +128,8 @@ const ConsultantSignup = () => {
       dateOfBirth === ""
     ) {
       setDisable(false);
+      setLoader(true);
+      setBtnDisable(true);
       console.log("found error");
       if (!idType) {
         setErrorIdType(true);
@@ -141,8 +196,13 @@ const ConsultantSignup = () => {
         })
       )
         .then((response) => {
-          console.log("Consultant signup Response: ", response);
-          router.push("/");
+          setLoader(false);
+          setBtnDisable(false);
+          if(response.token){          
+            setSuccessAlert(true);
+            setTimeout(function(){ router.push('/') }, 7000);
+          }       
+          console.log("Consultant SignUp Response: ", response);
         })
         .catch((error) => {
           console.log("SignUp Error: ", error);
@@ -196,6 +256,9 @@ const ConsultantSignup = () => {
 
   const [dateOfBirth, setDateOfBirth] = useState("1993-05-24");
 
+  const [loader,setLoader] = useState(false);
+  const [btnDisable,setBtnDisable] = useState(false);
+  const [successAlert,setSuccessAlert] = useState(false);
   const alphabets = /^[a-zA-Z ]*$/;
   const mailformat =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -205,7 +268,7 @@ const ConsultantSignup = () => {
 
   return (
     <>
-      <Card style={{ padding: "10px", border: "1px solid #DADCE0" }}>
+      <Paper elevation={3} style={{ padding: "10px", border: "1px solid #DADCE0" }}>
         <Typography align="center">
           <img
             src="https://thehina.com/assets/img/logo/logo.png"
@@ -218,11 +281,11 @@ const ConsultantSignup = () => {
           style={{ marginTop: "20px", marginBottom: "20px", color: "#7b40c0" }}
           align="center"
         >
-          Create Your Consultant Account
+          Create your consultant account
         </Typography>
-
-        <Grid container spacing={2} style={{ padding: "30px" }}>
-          <Grid item md={4}>
+        
+        <Grid container spacing={1} style={{ padding: "18px" }}>
+          <Grid item md={3}>
             <InputLabel htmlFor="idType">Id Type</InputLabel>
             <Select
               fullWidth
@@ -238,12 +301,12 @@ const ConsultantSignup = () => {
               }}
               error={errorIdType === true ? true : null}
             >
-              <option aria-label="None" value="" />
+              <option aria-label="None" value="" ></option>
               <option value={"sId"}>Saudia National Id</option>
             </Select>
           </Grid>
 
-          <Grid item md={8}>
+          <Grid item md={9}>
             <TextField
               label="Id Number"
               type="number"
@@ -436,7 +499,7 @@ const ConsultantSignup = () => {
           <Grid item md={9} style={{ marginTop: "10px" }}>
             <TextField
               label="Mobile Number"
-              type="text"
+              type="number"
               fullWidth
               style={{ marginTop: "10px" }}
               size="small"
@@ -625,8 +688,9 @@ const ConsultantSignup = () => {
 
           <Grid item md={12}>
             <CardActions style={{ justifyContent: "center", padding: "20px" }}>
+            {btnDisable===false?
               <Button
-                style={{ color: "white", backgroundColor: "#7b40c0" }}
+                style={{ color: "white", backgroundColor: "#7b40c0",textTransform:"capitalize" }}
                 variant="contained"
                 fullWidth
                 disabled={
@@ -668,18 +732,34 @@ const ConsultantSignup = () => {
               >
                 Sign Up
               </Button>
+              :
+              <Button
+                style={{ color: "white", backgroundColor: "#7b40c0",textTransform:"capitalize" }}
+                variant="contained"
+                fullWidth
+              >
+                Sign Up
+              </Button>
+            }
             </CardActions>
+            {loader === true ? (
+                        <center>
+                          <CircularProgress color="primary" />
+                        </center>
+                      ) : null}
+            {successAlert===true?<Alert severity="success">Your Request has been submitted. Please wait until admin approved your request!</Alert>:null}
             <CardActions style={{ justifyContent: "center" }}>
               <Button
-                style={{ marginTop: "10px", color: "#DA71D4" }}
+                style={{ marginTop: "10px", color: "#DA71D4",textTransform:"capitalize" }}
                 onClick={() => router.push("/login")}
               >
                 Already have an account?
               </Button>
             </CardActions>
+            
           </Grid>
         </Grid>
-      </Card>
+      </Paper>
     </>
   );
 };

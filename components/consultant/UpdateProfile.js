@@ -11,7 +11,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import * as actions from "./redux/actions";
 import { baseURL } from "../../env";
 import Alert from "@material-ui/lab/Alert";
-
+import BankAccount from './BankAccount'
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
@@ -71,7 +71,7 @@ const UpdateProfile = () => {
 
   return (
     <>
-      <Grid container>
+      <Grid container spacing={1}>
         <Grid item md={6} xs={12}>
           <Paper elevation={3} style={{ marginTop: "20px" }}>
             <form noValidate autoComplete="off" style={{ padding: "30px" }}>
@@ -177,7 +177,7 @@ const UpdateProfile = () => {
                     }}
                   />
                 </Grid>
-                <Grid item md={4} xs={12}>
+                <Grid item md={6} xs={12}>
                   <TextField
                     id="dateId"
                     label="Hour Price"
@@ -194,7 +194,7 @@ const UpdateProfile = () => {
                   />
                 </Grid>
 
-                <Grid item md={4} xs={12}>
+                <Grid item md={6} xs={12}>
                   <TextField
                     id="dateId"
                     label="Mobile Number"
@@ -210,7 +210,7 @@ const UpdateProfile = () => {
                     }}
                   />
                 </Grid>
-                <Grid item md={4} xs={12}>
+                {/* <Grid item md={4} xs={12}>
                   <TextField
                     id="dateId"
                     label="IBAN"
@@ -225,7 +225,7 @@ const UpdateProfile = () => {
                       shrink: true,
                     }}
                   />
-                </Grid>
+                </Grid> */}
                 <Grid item md={12} xs={12}>
                   <TextField
                     id="dateId"
@@ -263,8 +263,10 @@ const UpdateProfile = () => {
             </form>
           </Paper>
         </Grid>
-        <Grid item md={1}></Grid>
-        <Grid item md={6} xs={8}></Grid>
+        
+        <Grid item md={6} xs={12} style={{ marginTop: "20px" }}>
+          <BankAccount />
+        </Grid>
       </Grid>
     </>
   );

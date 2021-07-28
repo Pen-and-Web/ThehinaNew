@@ -1,36 +1,28 @@
-import React, { useState } from "react";
-import Paper from "@material-ui/core/Paper";
+import React from "react";
 import {
   darken,
   fade,
   lighten,
 } from "@material-ui/core/styles/colorManipulator";
-import Grid from '@material-ui/core/Grid';
-import BookIcon from '@material-ui/icons/Book';
-import Typography from "@material-ui/core/Typography";
+import {BookIcon,SubjectIcon} from '@material-ui/icons/Book';
 import { ViewState, EditingState } from "@devexpress/dx-react-scheduler";
-import SubjectIcon from '@material-ui/icons/Subject';
 import {
-
   Scheduler,
-  // MonthView,
-  // DayView,
   WeekView,
   Appointments,
   Toolbar,
   DateNavigator,
   AppointmentTooltip,
-  AppointmentForm,
-  EditRecurrenceMenu,
 } from "@devexpress/dx-react-scheduler-material-ui";
 import { withStyles } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
 import { useRouter } from "next/router";
 import axios from 'axios';
-
-import Router from 'next/router';
-import NProgress from 'nprogress';
 import { baseURL } from "../../env";
+import Alert from '@material-ui/lab/Alert';
+import { useDispatch,useSelector } from "react-redux";
+import * as actions from './redux/actions'
+import {ListItem,ListItemText,ListItemAvatar,Avatar,Box,Paper,Grid,Typography,Button,CircularProgress} from '@material-ui/core';
+
 
 const getBorder = (theme) =>
   `1px solid ${
@@ -41,7 +33,7 @@ const getBorder = (theme) =>
 
 const styles = (theme) => ({
   cell: {
-    color: "#78909C!important",
+    // color: "#78909C!important",
     position: "relative",
     userSelect: "none",
     verticalAlign: "top",
@@ -59,11 +51,7 @@ const styles = (theme) => ({
     },
     "&:hover": {
       backgroundColor: "white",
-    },
-    "&:focus": {
-      backgroundColor: fade(theme.palette.primary.main, 0.15),
-      outline: 0,
-    },
+    }
   },
   content: {
     display: "flex",
@@ -77,24 +65,6 @@ const styles = (theme) => ({
     padding: "0.5em",
     textAlign: "center",
   },
-  sun: {
-    color: "#FFEE58",
-  },
-  cloud: {
-    color: "#90A4AE",
-  },
-  rain: {
-    color: "#4FC3F7",
-  },
-  sunBack: {
-    backgroundColor: "#FFFDE7",
-  },
-  cloudBack: {
-    backgroundColor: "#ECEFF1",
-  },
-  rainBack: {
-    backgroundColor: "#E1F5FE",
-  },
   opacity: {
     opacity: "0.5",
   },
@@ -102,6 +72,17 @@ const styles = (theme) => ({
     borderRadius: "10px",
     "&:hover": {
       opacity: 0.6,
+      backgroundColor:'#65d4e0'
+    },
+    backgroundColor: "#50bbc7",
+  },
+  bookedAppointment:{
+    borderRadius: "10px",
+    color: "white",
+    backgroundColor: "#7b40c0",
+    "&:hover": {
+      opacity: 0.6,
+      backgroundColor:'#6146AC'
     },
   },
   apptContent: {
@@ -109,6 +90,7 @@ const styles = (theme) => ({
       whiteSpace: "normal !important",
       lineHeight: 1.2,
     },
+   
   },
   flexibleSpace: {
     flex: "none",
@@ -120,7 +102,7 @@ const styles = (theme) => ({
   tooltipContent: {
     padding: theme.spacing(3, 1),
     paddingTop: 0,
-    backgroundColor: theme.palette.background.paper,
+    // backgroundColor: theme.palette.background.paper,
     boxSizing: "border-box",
     width: "400px",
   },
@@ -186,13 +168,25 @@ const style = ({ palette }) => ({
 
 const Appointment = withStyles(styles, { name: "Appointment" })(
   ({ classes, ...restProps }) => (
-    <Appointments.Appointment
-      {...restProps}
-      className={classes.appointment}
-      
-      // onClick={() => console.log("Rest Props 2: ", restProps)}
-     
-    />
+    <>
+  {   
+      restProps.data.availability=== false?
+      <Appointments.Appointment
+                {...restProps}
+                className={classes.bookedAppointment}      
+                onClick={() => null}     
+            />
+      :
+      <>
+      <Appointments.Appointment
+                {...restProps}
+                className={classes.appointment}      
+                // onClick={() => console.log("Rest Props 2: ", restProps)}     
+            />
+      </>  
+  }   
+    </>
+    
   )
 );
 
@@ -201,6 +195,7 @@ const AppointmentContent = withStyles(styles, { name: "AppointmentContent" })(
     <Appointments.AppointmentContent
       {...restProps}
       className={classes.apptContent}
+      // onClick={() => console.log("Rest Props 2: ", restProps)}
     />
   )
 );
@@ -209,50 +204,58 @@ const FlexibleSpace = withStyles(styles, { name: "ToolbarRoot" })(
   ({ classes, ...restProps }) => (
     <Toolbar.FlexibleSpace {...restProps} className={classes.flexibleSpace}>
       <div className={classes.flexContainer}>
-        <Typography variant="h5" style={{ marginLeft: "10px" }}>
+       <ListItem>
+              <Box  borderRadius="50%"  style={{ width:'20px',height:'20px',backgroundColor:'#7b40c0',marginRight:'10px' }} >
+              </Box>          
+              <ListItemText primary="Booked"  />
+
+              <Box  borderRadius="50%"  style={{ width:'20px',height:'20px',backgroundColor:'#50bbc7',marginRight:'10px',marginLeft:'10px' }}>
+              </Box>
+              <ListItemText primary="Available"  />
+        </ListItem>
+        
+       
+        <Typography variant="h5" >
           <img src="/logo.png" style={{ width: "100px", height: "100px" }} />
         </Typography>
       </div>
+      
     </Toolbar.FlexibleSpace>
   )
 );
-import { useDispatch,useSelector } from "react-redux";
-import * as actions from './redux/actions'
-const Content = withStyles(style, { name: 'Content' })((
 
+const Content = withStyles(style, { name: 'Content' })((
   {  children, appointments, classes, ...restProps}) => {
     const router = useRouter();
     const dispatch = useDispatch();
-
-  
   return (
-
   <AppointmentTooltip.Content {...restProps} appointments={appointments}>
-    
     <Grid container alignItems="center">
-    <Grid item xs={2} className={classes.textCenter}>
-      <SubjectIcon />
+      <Grid item xs={2} className={classes.textCenter}>
+         <SubjectIcon />
       </Grid>
+
       <Grid item xs={10}>
-      <Typography >{restProps.appointmentData.subject}</Typography>
-        </Grid>
+         <Typography >{restProps.appointmentData.subject}</Typography>
+      </Grid>
+
       <Grid item xs={2} className={classes.textCenter}>
         <BookIcon />
       </Grid>
+
       <Grid item xs={10}>
-        <Button
-        
-        style={{ zIndex: "100",color:"white",backgroundColor:'#730DDC' }}
-        variant="contained"
-        onClick={() =>{           
-          dispatch(actions.bookAppointmentData(restProps.appointmentData._id,restProps.appointmentData.consultantId,restProps.appointmentData.startDate,restProps.appointmentData.endDate));
-          dispatch(actions.switchComponent(true))
-        }
-      }
+        <Button        
+          style={{ zIndex: "100",color:"white",backgroundColor:'#730DDC',textTransform:"capitalize" }}
+          variant="contained"
+          onClick={() =>{           
+            dispatch(actions.bookAppointmentData(restProps.appointmentData._id,restProps.appointmentData.consultantId,restProps.appointmentData.startDate,restProps.appointmentData.endDate));
+            dispatch(actions.switchComponent(true))
+          }
+          }
         fullWidth
-      >
-        Book Appointment
-      </Button>
+        >
+            Request an Appointment
+        </Button>
       
       </Grid>
     </Grid>
@@ -262,22 +265,20 @@ const Content = withStyles(style, { name: 'Content' })((
 const CommandButton = withStyles(style, { name: 'CommandButton' })(({
   classes, ...restProps
 }) => (
-  <AppointmentTooltip.CommandButton {...restProps} className={classes.commandButton} />
+    <AppointmentTooltip.CommandButton {...restProps} className={classes.commandButton} />
 ));
 
 export default class Calender extends React.PureComponent {
   constructor(props) {
     super(props);
-
     this.state = {
       data: [],
       open: false,
       popupData: {},
     };
-
   }
 
-  async  consultantData(){
+  async consultantData(){
     let data = await axios.get(baseURL+`/schedule?consultantId=${this.props.consultantId}`)
     .then(res=>{
       this.setState({data:res.data})     
@@ -292,52 +293,48 @@ export default class Calender extends React.PureComponent {
     }
    }
   
-  handleClickOpen() {
-    this.setState({ open: true });
-  }
 
-  handleClose() {
-    this.setState({ open: false });
-  }
-
-
-  
   render() {
     const { data, open } = this.state;
-    // console.log("id in calender",this.props.id);
-    
+    console.log(data.schedule?.length,"schedule length")
     return (
      
-      <div style={{ padding: "100px", marginTop: "-100px" }}>
-        
-        <Paper style={{ border: "1px solid #E0E0E0" }}>
-          <Scheduler data={data.schedule}>
-            {console.log("schedular",data.schedule)}
-          
-            <ViewState  />
-
-            
-            <WeekView startDayHour={9} endDayHour={19} />
-
-            <Appointments
-              appointmentComponent={Appointment}
-              appointmentContentComponent={AppointmentContent}
-            />
-            
-            <Toolbar flexibleSpaceComponent={FlexibleSpace} />
-            
-            <DateNavigator />
-            
-           
-            <AppointmentTooltip
-              contentComponent={Content}
-              commandButtonComponent={CommandButton}
-              showCloseButton
-            />
-           
-           
-          </Scheduler>
-        </Paper>
+      <div style={{ padding: "100px", marginTop: "-100px" }}>     
+         {data.schedule?.length===0?
+          <Paper style={{ border: "1px solid #E0E0E0",padding:'20px' }} elevation={3}>
+             <Alert severity="success">The consultant has not created any appointment slot.</Alert>
+          </Paper>           
+            :
+          data.schedule?.length>0?
+          <>
+            <Typography variant="h6" color="primary">Total Slots: {data.schedule.length}</Typography>
+              <Paper style={{ border: "1px solid #E0E0E0" }} elevation={3}>             
+              <Scheduler data={data.schedule}>
+                <ViewState  />           
+                <WeekView startDayHour={9} endDayHour={17} />
+                <Appointments
+                  appointmentComponent={Appointment}
+                  appointmentContentComponent={AppointmentContent}
+                />            
+                <Toolbar flexibleSpaceComponent={FlexibleSpace} />
+                <DateNavigator />                
+                <AppointmentTooltip
+                  contentComponent={Content}
+                  commandButtonComponent={CommandButton}
+                  showCloseButton
+                />           
+              </Scheduler>
+            </Paper>
+          </>
+            :
+            <Grid container>
+                <Grid item md={4} xs={4}></Grid>
+                  <Grid item md={4} xs={4} align="center">
+                    <CircularProgress />
+                  </Grid>
+                <Grid item md={4} xs={4}></Grid>
+            </Grid>
+        }
       </div>
     );
   }
