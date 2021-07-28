@@ -33,4 +33,19 @@ password: thehina_pnw
 15- All buttons color should be purple the same as the logo. (DONE)								  
 16- The primary key in the database is ID and email. (DONE)
 17- The survey pages. (IN PROGRESS)													  
-18-The user does not need approval but still needs control to suspend if needed. (DONE)					  
+18-The user does not need approval but still needs control to suspend if needed. (DONE)
+
+1- The confirmation email from The platform that contains the Zoom Link is not clear. For example, there are no time details, name of the user or consultant ، the session subject. (DONE) 
+2- The platform can not create a user account. (DONE)
+3- The consultation session from the client-side and from the consultant side is not working in a proper way. The consultant should be able to determine specific interval time on different days to provide the consultation service for many users, while the user should be able to determine specific time slots for the session from that interval time on the appointments page.
+4- The platform can not change the session time from both sides The consult and  the user
+5- The platform has No validation for the IBAN field  in the consultant profile 
+6- The platform allows for a double reservation without an error message. (DONE) 
+7- The survey should show after the end of the session
+8- The validation of IBANs should be consistent with Saudi banks.
+9- The text box name in Arabic need field validation (it accepted English letters) (DONE)
+10- Need a consultant to notice that admin permission is required while registering as a consultant for the first time. 
+11- The survey dashboard pages. (DONE)
+12- If the consultant is booked this needs to be shown on the calendar in different colors. (The consultant states if available or not). (DONE)
+13- How to create and reset admin user sign-up and sign-in credentials? 
+					  

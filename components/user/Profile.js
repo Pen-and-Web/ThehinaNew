@@ -16,7 +16,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { baseURL, imgUrl } from "../../env";
 import { set } from "js-cookie";
 import UpdateProfile from "./UpdateProfile";
-import { ArrowBackIosIcon } from "@material-ui/icons/ArrowBackIos";
+import  ArrowBackIosIcon  from "@material-ui/icons/ArrowBackIos";
 
 const useStyles = makeStyles((theme) => ({
   link: {
