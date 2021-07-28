@@ -12,6 +12,9 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import { useDispatch,useSelector } from "react-redux";
 import io from "socket.io-client";
 import {baseURL} from '../../../env'
+import Alert from '@material-ui/lab/Alert';
+import { Box } from "@material-ui/core";
+
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -29,51 +32,66 @@ const AddSchedule = () =>{
   const [date,setDate] = useState('');
   const [startTime,setStartTime] = useState('');
   const [endTime,setEndTime] = useState('');
+  const [successAlert,setSuccessAlert] = useState(false);
+  const [errorAlert,setErrorAlert] = useState(false);
+  const [requiredFieldAlert,setRequiredFieldAlert] = useState(false);
   const classes = useStyles();
   const userId = useSelector(state=>{ return state.consultantReducer.userId});
 
-  // console.log("Add appointment",props.userDetail)
   
 
   const submitRequest = async (subject,date,startTime,endTime) => {
-
-
-     
-    const data={
-      // consultantId:props.userDetail.id,
-      consultantId:userId,
-      subject:subject,
-      startDate:date+"T"+startTime,
-      endDate: date+"T"+endTime
+    setSuccessAlert(false);
+    setErrorAlert(false);
+    setRequiredFieldAlert(false)
+    if(!subject || !date || !startTime || !endTime){       
+      setRequiredFieldAlert(true);
     }
-    axios.post(baseURL+"/schedule",data)
-    .then(res=>console.log(res.data))
+    else{
+          const data={
+            consultantId:userId,
+            subject:subject,
+            startDate:date+"T"+startTime,
+            endDate: date+"T"+endTime
+          }
+          axios.post(baseURL+"/schedule",data)
+            .then(res=>{
+              console.log(res,"add schedule response")
+              if(res.statusText==="OK"){
+                console.log("OK Response")
+                setSuccessAlert(true)
+              }
+            })
+            .catch(err=>{
+              err.response.data.message?setErrorAlert(true):setErrorAlert(false);
+            })
+             //clearing fields after submitting request
+                    subjectId.value="";
+                    dateId.value="";
+                    stimeId.value="";
+                    etimeId.value="";
+    }
     
-    //clearing fields after submitting request
-    subjectId.value="";
-    dateId.value="";
-    stimeId.value="";
-    etimeId.value="";
-
-
+    
   }
-    return(
+
+  return(
         <> 
         <Breadcrumbs aria-label="breadcrumb">
-            <Typography color="textPrimary" className={classes.link}>   
-                        <HomeIcon className={classes.icon} />
+                    <Typography color="textPrimary" className={classes.link}>   
+                       <HomeIcon className={classes.icon} />
                         Dashboard
-                </Typography>    
+                    </Typography>    
                     <Typography color="textPrimary" className={classes.link}
                         color="inherit"
                         href="/getting-started/installation/"                       
                         className={classes.link}
-                    >
-                        <EventIcon className={classes.icon} />
-                        Schedule Appointment
-                        </Typography>
-                    
-            </Breadcrumbs>
+                      >
+                    <EventIcon className={classes.icon} />
+                      Schedule Appointment
+                    </Typography>                    
+        </Breadcrumbs>
+        
         <Grid container>
           <Grid item md={6} xs={6}>
           
@@ -96,7 +114,6 @@ const AddSchedule = () =>{
             id="dateId"
             label="Appointment Date"
             type="date"
-            // defaultValue="2017-05-24"
             value={date}
             onChange={(e)=>{setDate(e.target.value)}}
             fullWidth
@@ -111,7 +128,6 @@ const AddSchedule = () =>{
             id="stimeId"
             label="Start Time"
             type="time"
-            // defaultValue="07:30"
             fullWidth
             value={startTime}
             onChange={(e)=>{setStartTime(e.target.value)}}
@@ -120,7 +136,7 @@ const AddSchedule = () =>{
               shrink: true,
             }}
             inputProps={{
-              step: 300, // 5 min
+              step: 300, 
             }}
           />
           </Grid>
@@ -129,7 +145,6 @@ const AddSchedule = () =>{
             id="etimeId"
             label="End Time"
             type="time"
-            // defaultValue="07:30"
             fullWidth
             value={endTime}
             onChange={(e)=>{setEndTime(e.target.value)}}
@@ -138,15 +153,13 @@ const AddSchedule = () =>{
               shrink: true,
             }}
             inputProps={{
-              step: 300, // 5 min
+              step: 300, 
             }}
           />
           </Grid>
 
         </Grid>
       
-      {console.log(date+"T"+startTime)}
-      {console.log(date+"T"+endTime)}
         <Button
             variant="contained"
             color="primary"
@@ -157,6 +170,26 @@ const AddSchedule = () =>{
           >
             Submit
           </Button>
+          <Box style={{marginTop:'5px'}}>
+          {successAlert===true?
+              <Alert severity="success">Schedule has been created!</Alert>
+            :
+            null
+            }
+            {errorAlert===true?
+                    <Alert severity="error">Slot already created. Please change the Slot!</Alert>
+
+            :
+            null
+            }  
+            {requiredFieldAlert===true?
+            <Alert severity="warning">Please fill all the required fields</Alert>
+              :
+              null
+              } 
+          </Box>
+           
+         
        </form>   
        
         </Paper>
