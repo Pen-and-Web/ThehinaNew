@@ -334,7 +334,7 @@ export default class Calender extends React.PureComponent {
             :
           data.schedule?.length>0?
           <>
-            {/* <Typography variant="h6" color="primary">Total Slots: {data.schedule.length}</Typography> */}
+            <Typography variant="h6" color="primary">Total Slots: {data.schedule.length}</Typography>
               <Paper style={{ border: "1px solid #E0E0E0" }} elevation={3}>             
               <Scheduler data={data.schedule}>
                 <ViewState  />           
