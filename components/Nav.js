@@ -27,20 +27,6 @@ import jwt_decode from "jwt-decode";
 import {parseCookies} from 'nookies'
 import Link from 'next/link'
 
-Router.onRouteChangeStart = () => {
-  console.log('onRouteChangeStart triggered');
-  NProgress.start();
-};
-
-Router.onRouteChangeComplete = () => {
-  console.log('onRouteChangeComplete triggered');
-  NProgress.done();
-};
-
-Router.onRouteChangeError = () => {
-  console.log('onRouteChangeError triggered');
-  NProgress.done();
-};
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,

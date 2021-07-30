@@ -38,20 +38,7 @@ import * as actions from "./redux/actions";
 import Router from "next/router";
 import NProgress from "nprogress";
 import { baseURL, imgUrl } from "../../env";
-Router.onRouteChangeStart = () => {
-  console.log("onRouteChangeStart triggered");
-  NProgress.start();
-};
 
-Router.onRouteChangeComplete = () => {
-  console.log("onRouteChangeComplete triggered");
-  NProgress.done();
-};
-
-Router.onRouteChangeError = () => {
-  console.log("onRouteChangeError triggered");
-  NProgress.done();
-};
 const drawerWidth = 230;
 
 const useStyles = makeStyles((theme) => ({
@@ -274,7 +261,7 @@ export default function ConsultantDashboard(props) {
                       }
                
                 {/* <Avatar alt="profile picture" src={`http://206.189.52.233/1624276877258-young-doctor-16088825.jpg`} className={classes.large} /> */}
-                {console.log("NO error", userInfo.imageUrl)}
+                {/* {console.log("NO error", userInfo.imageUrl)} */}
               </IconButton>
               <Menu
                 id="menu-appbar"

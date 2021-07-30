@@ -56,9 +56,9 @@ const AddSchedule = () =>{
           }
           axios.post(baseURL+"/schedule",data)
             .then(res=>{
-              console.log(res,"add schedule response")
+              // console.log(res,"add schedule response")
               if(res.statusText==="OK"){
-                console.log("OK Response")
+                // console.log("OK Response")
                 setSuccessAlert(true)
               }
             })

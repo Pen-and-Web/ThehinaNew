@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const UpdateSchedule = (props) => {
   const classes = useStyles();
 
-  console.log("Update Schedule Props",props.data);
+  // console.log("Update Schedule Props",props.data);
   const [subject,setSubject] = useState(props.data.subject);
   const [date,setDate] = useState(props.data.date);
   const [startTime,setStartTime] = useState(props.data.startTime);
@@ -58,7 +58,7 @@ const UpdateSchedule = (props) => {
     
     axios.put(baseURL+`/schedule?scheduleId=${props.data.id}`,data)
     .then(res=>{
-      console.log("update response from updateSchedule",res.data)
+      // console.log("update response from updateSchedule",res.data)
       // console.log("Checking put request of update schedule",res.data);
       dispatch(actions.submitUpdateRecord(true))
     }

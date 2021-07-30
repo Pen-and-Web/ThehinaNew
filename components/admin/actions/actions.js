@@ -12,7 +12,7 @@ export const user=(data)=>{
 export const deleteUser=(id,role)=>{
   axios.delete(baseURL+`/user?id=${id}&&role=${role}`)
   .then(response=>{
-    console.log(response);
+    // console.log(response);
   })
   .catch(err=>console.log(err))
   
@@ -33,7 +33,7 @@ export const consultant=(data)=>{
 export const deleteConsultant=(id,role)=>{
   axios.delete(baseURL+`/user?id=${id}&&role=${role}`)
       .then(response=>{
-        console.log(response.data);
+        // console.log(response.data);
       })
       .catch(err=>console.log(err))
   return{

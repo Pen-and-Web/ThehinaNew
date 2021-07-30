@@ -39,7 +39,7 @@ const userReducer = (state = userState, { type, payload }) => {
         error: payload,
       };
     case SET_CURRENTUSER:
-      console.log(payload);
+      // console.log(payload);
       return {
         ...state,
         userDetail: payload,

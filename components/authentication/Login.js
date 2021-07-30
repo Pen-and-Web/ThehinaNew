@@ -85,7 +85,7 @@ const Login = () => {
     setLoader(true);
     await dispatch(actions.login({ email, password }))
       .then((response) => {
-        console.log("Checking response ", response);
+        // console.log("Checking response ", response);
         response.error?.message ===
         "Currently you can not sign in to this application!"
           ? setOpen(true)
@@ -99,7 +99,7 @@ const Login = () => {
           router.push("/consultant");
         } else if (response.role === "Admin") {
           setLoader(true);
-          console.log("3");
+          // console.log("3");
           router.push("/admin");
         } else {
           setLoader(false);
@@ -107,8 +107,8 @@ const Login = () => {
       })
       .catch((error) => {
         setLoader(false);
-        console.log("Forbidden error message");
-        console.log("Login Error: ", error);
+        // console.log("Forbidden error message");
+        // console.log("Login Error: ", error);
       });
   };
 

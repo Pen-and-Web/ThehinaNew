@@ -108,7 +108,7 @@ export const ViewConsultantAppointment = ({userId}) => {
     useEffect(()=>{getAppointment()},[])
 
     setTimeout(() => {
-      console.log("Appointment refresh checking")
+      // console.log("Appointment refresh checking")
       getAppointment();
       
     }, 10000);

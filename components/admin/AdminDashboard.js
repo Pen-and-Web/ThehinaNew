@@ -32,20 +32,7 @@ import cookie from 'js-cookie'
 import Router from 'next/router';
 import NProgress from 'nprogress';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
-Router.onRouteChangeStart = () => {
-  console.log('onRouteChangeStart triggered');
-  NProgress.start();
-};
 
-Router.onRouteChangeComplete = () => {
-  console.log('onRouteChangeComplete triggered');
-  NProgress.done();
-};
-
-Router.onRouteChangeError = () => {
-  console.log('onRouteChangeError triggered');
-  NProgress.done();
-};
 
 
 const drawerWidth = 230;
@@ -167,7 +154,7 @@ export default function AdminDashboard(props) {
     setOpen(false);
     setHide(true)
   };
-  console.log("decodevddddddddddd",props.userDetail)
+  // console.log("decode",props.userDetail)
   return (
     
 

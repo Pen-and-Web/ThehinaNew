@@ -16,7 +16,7 @@ import axios from "axios";
 // import { useDispatch } from 'react-redux';
 import { baseURL } from "../../../env";
 export const userDetail = (data) => {
-  console.log("User Logged in information action", data);
+  // console.log("User Logged in information action", data);
   return {
     type: USERDETAIL,
     payload: data,
@@ -24,7 +24,7 @@ export const userDetail = (data) => {
 };
 
 export const userId = (data) => {
-  console.log("User Logged in information action", data);
+  // console.log("User Logged in information action", data);
   return {
     type: USERID,
     payload: data,
@@ -32,7 +32,7 @@ export const userId = (data) => {
 };
 
 export const scheduleDetails = (data) => {
-  console.log("data in schedule detail is ", data);
+  // console.log("data in schedule detail is ", data);
 
   return {
     type: SCHEDULEDETAILS,
@@ -68,7 +68,7 @@ export const newSchedule = (schedule) => {
 //
 
 export const submitUpdateRecord = (value) => {
-  console.log("submitUpdateRecord", value);
+  // console.log("submitUpdateRecord", value);
   return {
     type: SubmitUpdateRecord,
     payload: value,
@@ -76,11 +76,11 @@ export const submitUpdateRecord = (value) => {
 };
 
 export const updateScheduleRecord = (data) => {
-  console.log(data);
+  // console.log(data);
   // const dispatch = useDispatch();
 
   axios.put(baseURL`/schedule?scheduleId=${data.id}`, data).then((response) => {
-    console.log("asdasds", response.data);
+    // console.log("asdasds", response.data);
   });
   return {
     type: UPDATE_SCHEDULERECORD,
@@ -88,7 +88,7 @@ export const updateScheduleRecord = (data) => {
 };
 
 export const submitUpdateRecordAppointment = (value) => {
-  console.log("submitUpdateRecord", value);
+  // console.log("submitUpdateRecord", value);
   return {
     type: SUBMITUPDATERECORD_APPOINTMENT,
     payload: value,

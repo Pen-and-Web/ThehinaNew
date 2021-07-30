@@ -98,9 +98,11 @@ const ConsultantSignup = () => {
     role
   ) => {
     phoneNumber = countryCode + phoneNumber;
+    hourPrice = hourPrice + "SAR";
     setLoader(true);
     setBtnDisable(true);
     setDisable(true);
+    setErrorAlert(false)
     if (
       errorIdType === true ||
       errorIdNumber === true ||
@@ -130,7 +132,7 @@ const ConsultantSignup = () => {
       setDisable(false);
       setLoader(true);
       setBtnDisable(true);
-      console.log("found error");
+      // console.log("found error");
       if (!idType) {
         setErrorIdType(true);
       }
@@ -174,7 +176,7 @@ const ConsultantSignup = () => {
         setErrorRegion(true);
       }
     } else {
-      console.log("NO error");
+      // console.log("NO error");
       dispatch(
         actions.signup({
           name,
@@ -202,10 +204,21 @@ const ConsultantSignup = () => {
             setSuccessAlert(true);
             setTimeout(function(){ router.push('/') }, 7000);
           }       
-          console.log("Consultant SignUp Response: ", response);
+          // console.log("Consultant SignUp Response: ", response);
+          if(response.error){
+            if(response.error.message){
+              setErrorMessage(response.error.message)
+            }
+            else{
+              setErrorMessage(response.error)
+            }
+           
+            setErrorAlert(true)
+            
+          }
         })
         .catch((error) => {
-          console.log("SignUp Error: ", error);
+          // console.log("SignUp Error: ", error);
         });
     }
   };
@@ -259,6 +272,9 @@ const ConsultantSignup = () => {
   const [loader,setLoader] = useState(false);
   const [btnDisable,setBtnDisable] = useState(false);
   const [successAlert,setSuccessAlert] = useState(false);
+  const [errorAlert,setErrorAlert] = useState(false);
+  const [errorMessage,setErrorMessage] = useState("");
+  
   const alphabets = /^[a-zA-Z ]*$/;
   const mailformat =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -278,10 +294,10 @@ const ConsultantSignup = () => {
         <Typography
           variant="h5"
           component="h2"
-          style={{ marginTop: "20px", marginBottom: "20px", color: "#7b40c0" }}
+          style={{ marginTop: "20px", marginBottom: "20px", color: "#7b40c0",fontWeight:"500" }}
           align="center"
         >
-          Create your consultant account
+          Create Your Consultant Account
         </Typography>
         
         <Grid container spacing={1} style={{ padding: "18px" }}>
@@ -302,7 +318,9 @@ const ConsultantSignup = () => {
               error={errorIdType === true ? true : null}
             >
               <option aria-label="None" value="" ></option>
-              <option value={"sId"}>Saudia National Id</option>
+              <option value={"Saudi National Id"}>Saudia National Id</option>
+              <option value={"Saudi Iqama"}>Saudi Iqama</option>
+              <option value={"No Saudi Id or Iqama"}>No Saudi Id or Iqama</option>
             </Select>
           </Grid>
 
@@ -748,6 +766,8 @@ const ConsultantSignup = () => {
                         </center>
                       ) : null}
             {successAlert===true?<Alert severity="success">Your Request has been submitted. Please wait until admin approved your request!</Alert>:null}
+            {errorAlert===true?<Alert severity="error">{errorMessage}</Alert>:null}
+
             <CardActions style={{ justifyContent: "center" }}>
               <Button
                 style={{ marginTop: "10px", color: "#DA71D4",textTransform:"capitalize" }}

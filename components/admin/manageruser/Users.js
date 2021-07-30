@@ -83,7 +83,7 @@ const Users = () =>{
       axios.get(baseURL+'/user?role=User')
       .then(response=>{
         dispatch(actions.user(response.data.user));
-        console.log("User Array on api call",response.data.user);
+        // console.log("User Array on api call",response.data.user);
       })
       .catch(err=>console.log(err))
     }
@@ -96,7 +96,7 @@ const Users = () =>{
     
     
       setTimeout(() => {
-        console.log("User refresh checking")
+        // console.log("User refresh checking")
         getUser();
         
       }, 10000);
@@ -158,7 +158,7 @@ const Users = () =>{
           </TableRow>
         </TableHead>
         <TableBody>
-          {console.log(data.length,"User List")}
+          {/* {console.log(data.length,"User List")} */}
           {data.length>0?
           data.map((row) => (
             <TableRow key={row._id}>

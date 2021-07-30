@@ -47,8 +47,8 @@ const consultantReducer = (state = consultantState, { type, payload }) => {
       };
     //end here
     case DELETE_SCHEDULERECORD:
-      console.log(payload, "payload delete");
-      console.log(state.scheduleDetails, "schedule");
+      // console.log(payload, "payload delete");
+      // console.log(state.scheduleDetails, "schedule");
       return {
         ...state,
         scheduleDetails: state.scheduleDetails.filter(
@@ -56,13 +56,13 @@ const consultantReducer = (state = consultantState, { type, payload }) => {
         ),
       };
     case SubmitUpdateRecord:
-      console.log(payload, "SubmitUpdateRecord");
+      // console.log(payload, "SubmitUpdateRecord");
       return {
         ...state,
         submitUpdateRecord: payload,
       };
     case SUBMITUPDATERECORD_APPOINTMENT:
-      console.log(payload, "SubmitUpdateRecord");
+      // console.log(payload, "SubmitUpdateRecord");
       return {
         ...state,
         submitUpdateRecordAppointment: payload,
@@ -74,8 +74,8 @@ const consultantReducer = (state = consultantState, { type, payload }) => {
         appointmentDetails: payload,
       };
     case DELETE_APPOINTMENTRECORD:
-      console.log(payload, " appointment payload delete");
-      console.log(state.appointmentDetails, "appointment");
+      // console.log(payload, " appointment payload delete");
+      // console.log(state.appointmentDetails, "appointment");
       return {
         ...state,
         appointmentDetails: state.appointmentDetails.filter(

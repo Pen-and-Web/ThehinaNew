@@ -42,7 +42,7 @@ const CheckOutForm = () => {
       avenue:avenue,
       price:50
     }
-    console.log(cardDetail,"card detail");
+    // console.log(cardDetail,"card detail");
 
           axios.post(baseURL+`/checkOut`,cardDetail)
           .then(res=>console.log(res.data))
