@@ -240,7 +240,7 @@ export default function ConsultantDashboard(props) {
                 </Typography>
                 {/* <Avatar alt="profile picture" src={`${imgUrl}/${userDetail.user.imageUrl}`} className={classes.large} /> */}
                 {!userInfo.imageUrl?
-                        userInfo.gender==="male"?
+                        userInfo.gender==="Male"?
                         <Avatar
                         alt="profile picture"
                         src='/maleAvatar.png'
