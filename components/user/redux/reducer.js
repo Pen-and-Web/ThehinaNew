@@ -32,14 +32,14 @@ const clientReducer = (state = clientState, { type, payload }) => {
       };
 
     case CLIENTAPPOINTMENT_DETAILS:
-      console.log(payload, "data in client action");
+      // console.log(payload, "data in client action");
 
       return {
         ...state,
         clientAppointment: payload,
       };
     case BOOKAPPOINTMENTDATA:
-      console.log(payload, "data in client action");
+      // console.log(payload, "data in client action");
 
       return {
         ...state,

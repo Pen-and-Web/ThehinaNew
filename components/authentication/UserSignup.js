@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { CardActions, CardContent, Divider } from "@material-ui/core";
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import axios from 'axios';
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +49,7 @@ export const UserSignup = () => {
   const [gender, setGender] = useState("");
   const [errorGender,setErrorGender] = useState(false);
 
-  const [dateOfBirth, setDateOfBirth] = useState("1993-05-24");
+  const [dateOfBirth, setDateOfBirth] = useState("1990-12-12");
   const [errorDOB,setErrorDOB] = useState(false);
 
   const [image, setImage] = useState("");
@@ -63,10 +64,15 @@ export const UserSignup = () => {
   const [loader,setLoader] = useState(false);
 
   const [btnDisable,setBtnDisable] = useState(false);
+  const [errorAlert,setErrorAlert] = useState(false);
+  const [errorMessage,setErrorMessage] = useState("");
+
 
   const submitSignup = async (idType,idNumber,name, arabicName, email,password,phoneNumber,dateOfBirth,gender,region,role) => {
     setLoader(true);
     setBtnDisable(true);
+    setErrorAlert(false)
+
     //concatinate country code with phone Number
     phoneNumber=countryCode+phoneNumber;
 
@@ -112,14 +118,26 @@ export const UserSignup = () => {
      }
     }
      else{
-      console.log("No error")
+      // console.log("No error")
       dispatch(actions.userSignup({ idType,idNumber,name, arabicName, email,password,phoneNumber,dateOfBirth,gender,region,image,role}))
       .then((response) => {
+        
         setLoader(false);
         setBtnDisable(false);
         if(response.token){          
           router.push("/");
-        }       
+        }   
+        if(response.error){
+          if(response.error.message){
+            setErrorMessage(response.error.message)
+          }
+          else{
+            setErrorMessage(response.error)
+          }
+         
+          setErrorAlert(true)
+        } 
+            
         console.log("SignUp Response: ", response);
       })
       .catch((error) => {
@@ -162,7 +180,7 @@ export const UserSignup = () => {
           variant="h5"
           component="h2"
           align="center"
-          style={{color:"#7b40c0",marginTop:'20px',marginBottom:'10px',padding:'10px'}}          
+          style={{color:"#7b40c0",marginTop:'20px',marginBottom:'10px',padding:'10px',fontWeight:"500"}}          
         >Create Your Customer Account          
         </Typography>  
         
@@ -188,8 +206,9 @@ export const UserSignup = () => {
                       error={errorIdType===true?true:null}
                     >
                       <option aria-label="None" value="" />
-                      <option value={"sId"}>Saudia National Id</option>
-                      
+                      <option value={"Saudi National Id"}>Saudia National Id</option>
+                      <option value={"Saudi Iqama"}>Saudi Iqama</option>
+                      <option value={"No Saudi Id or Iqama"}>No Saudi Id or Iqama</option>
                     </Select>
             </Grid>
         
@@ -456,8 +475,6 @@ export const UserSignup = () => {
               <option value={"Hoof"}>Hoof</option>
               <option value={"Najran"}>Najran</option>
               <option value={"Outside Saudia Arabia"}>Outside Saudia Arabia</option>
-              <option value={"Outside Saudi Arabia"}>Outside Saudi Arabia</option>
-              
             </Select>
             </Grid>
 
@@ -519,6 +536,7 @@ export const UserSignup = () => {
                           <CircularProgress color="primary" />
                         </center>
                       ) : null}
+                  {errorAlert===true?<Alert severity="error">{errorMessage}</Alert>:null}
                   <CardContent>
                   <Typography variant="body2" gutterBottom style={{color:'#A599B2',marginTop:'-7px'}}>By creating an account, you agree to our Terms & conditions and Privacy policy</Typography>
                   </CardContent>

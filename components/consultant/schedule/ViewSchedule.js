@@ -66,10 +66,9 @@ const ViewSchedule = () =>{
     const getAppointment = () => {
       axios.get(baseURL+`/schedule?consultantId=${userId}`)
         .then(res=>{
-          console.log("hjubjhbh")
           setPreviewOnUpdateRecord(false)
-          console.log("response", res.data.schedule)
-          console.log("Response.data view schedule",res.data.schedule);
+          // console.log("response", res.data.schedule)
+          // console.log("Response.data view schedule",res.data.schedule);
           dispatch(actions.scheduleDetails(res.data.schedule))
           dispatch(actions.submitUpdateRecord(false))      
         })

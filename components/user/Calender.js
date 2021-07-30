@@ -322,8 +322,8 @@ export default class Calender extends React.PureComponent {
 
   render() {
     const { data, open } = this.state;
-    console.log(data.schedule,"Data schedule")
-    console.log(data.schedule?.length,"schedule length")
+    // console.log(data.schedule,"Data schedule")
+    // console.log(data.schedule?.length,"schedule length")
     return (
      
       <div style={{ padding: "100px", marginTop: "-100px" }}>     

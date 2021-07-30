@@ -59,7 +59,7 @@ const Activities = () =>{
     const getActivities = () => {
         axios.get(baseURL+'/activities')
             .then(response=>{
-                console.log(response.data);
+                // console.log(response.data);
               dispatch(actions.activities(response.data.activities));
             })
             .catch(err=>console.log(err))

@@ -71,7 +71,9 @@ const Consultants = () =>{
             dispatch(actions.consultant(response.data.user));
            
           })
-          .catch(err=>console.log(err))
+          .catch(err=>{
+            console.log(err)
+          })
       }
     const getUser = () => {
       axios.get(baseURL+'/user?role=User')
@@ -100,14 +102,14 @@ const Consultants = () =>{
     const client = useSelector(state=>{ return state.adminReducer.userData});
 
       useEffect(()=>{
-        console.log("Checking consultant refresh")
+        // console.log("Checking consultant refresh")
       getConsultant();getUser()
       },[refreshRecordOnUpdateStatus])    
 
 
       setTimeout(() => {
        
-        console.log("Checking function calling");
+        // console.log("Checking function calling");
       getConsultant()
       
     }, 60000);

@@ -38,7 +38,7 @@ admin.getInitialProps = (ctx)=>{
       if(role !== 'Admin' ){
         //as token is valid but when user use a valid token then this condition will
         //check whether decrypted token contain admin as a role otherwise redirect to login page
-        console.log("admin as a role condition works=> not admin")
+        // console.log("admin as a role condition works=> not admin")
         const {res} = ctx;
         res.writeHead(302,{Location:"/"})
         res.end()
@@ -53,7 +53,7 @@ admin.getInitialProps = (ctx)=>{
       catch(err){
         //it handles invalid token error 
         //when token is remove or invalid then it redirect to login page
-        console.log("Invalid Token")
+        // console.log("Invalid Token")
         const {res} = ctx;
         res.writeHead(302,{Location:"/"})
         res.end()

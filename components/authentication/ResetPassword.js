@@ -31,8 +31,8 @@ const ResetPassword = () => {
           email:email
       }
       axios.patch(baseURL+'/resetPassword',data)
-      .then(res=>{console.log(res.data);setComponent("otp");})
-      .catch(err=>console.log(err))
+      .then(res=>{setComponent("otp");})
+      .catch(err=>console.log(""))
   }
 
   const otpSubmit=()=>{

@@ -102,7 +102,7 @@ const BookAppointmentForm = () => {
  const consultantData=()=>{
     axios.get(baseURL+`/user?id=${id}`)
     .then(res=>{
-      console.log("consultant detail",res.data);
+      // console.log("consultant detail",res.data);
       setConsultantDetail(res.data.user)
     })
  }

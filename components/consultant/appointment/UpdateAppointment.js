@@ -41,10 +41,10 @@ const UpdateAppointment = ({data}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [status,setStatus] = useState("");
-  console.log("data in update appointment ",data);
+  // console.log("data in update appointment ",data);
   const submit = async( status)=>{
-    console.log("Status Value ",status)
-    console.log("Object ID ",data.id)
+    // console.log("Status Value ",status)
+    // console.log("Object ID ",data.id)
     
     dispatch(actions.updateAppointment(data.id,status))
     dispatch(actions.submitUpdateRecordAppointment(true))
@@ -150,7 +150,7 @@ const UpdateAppointment = ({data}) => {
             </Grid>
         </Grid>
       
-            {console.log("selected status",status)}
+            {/* {console.log("selected status",status)} */}
         <Button
             variant="contained"
             color="primary"
