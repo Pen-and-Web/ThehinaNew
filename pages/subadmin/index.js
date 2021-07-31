@@ -9,7 +9,7 @@ import { useDispatch,useSelector } from "react-redux";
 import {parseCookies} from 'nookies'
 
 
-const admin = ({userDetail}) => {
+const subadmin = ({userDetail}) => {
 
 
   // console.log("value",userDetail)
@@ -26,7 +26,7 @@ const admin = ({userDetail}) => {
   );
 }; 
 
-admin.getInitialProps = (ctx)=>{
+subadmin.getInitialProps = (ctx)=>{
   try{
     const cookie = parseCookies(ctx);
       // const user = cookie.User?"Admin":"";
@@ -35,7 +35,7 @@ admin.getInitialProps = (ctx)=>{
       const role = decoded.role;
       
 
-      if( role !== 'SuperAdmin' ){
+      if( role !== 'Admin' ){
         //as token is valid but when user use a valid token then this condition will
         //check whether decrypted token contain admin as a role otherwise redirect to login page
         // console.log("admin as a role condition works=> not admin")
@@ -61,4 +61,4 @@ admin.getInitialProps = (ctx)=>{
 
       
 }
-export default admin;
+export default subadmin;

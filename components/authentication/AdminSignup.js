@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {Grid,FormControl,Input,Card,Paper,TextField,Button,Typography,InputLabel,Select,CircularProgress} from "@material-ui/core";
+import {Grid,FormControl,Input,Card,Paper,TextField,Button,Typography,InputLabel,Select,CircularProgress,MenuItem} from "@material-ui/core";
 import Image from 'next/image'
 import { useDispatch } from "react-redux";
 import * as actions from "../../redux-thunk/actions";
@@ -16,6 +16,12 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(2),
       width: "25ch",
     },
+  },
+  formControl: {
+    minWidth: 160,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
   },
 }));
 
@@ -76,7 +82,7 @@ export const UserSignup = () => {
     //concatinate country code with phone Number
     phoneNumber=countryCode+phoneNumber;
 
-    if(errorIdNo===true||errorName===true|| errorPhoneNumber===true||  errorEmail===true|| errorPassword===true || errorGender===true || idType==="" ||  idNumber===""|| name===""|| arabicName==="" || email==="" || password===""|| gender==="" ||phoneNumber==="" || region==="" || dateOfBirth==="" || image==="" ){
+    if(errorIdNo===true||errorName===true|| errorPhoneNumber===true||  errorEmail===true|| errorPassword===true || errorGender===true || idType==="" ||  idNumber===""|| name===""|| arabicName==="" || email==="" || password===""|| gender==="" ||phoneNumber==="" || region==="" || dateOfBirth==="" ){
       setLoader(false);
       setBtnDisable(false);
 
@@ -181,12 +187,13 @@ export const UserSignup = () => {
           component="h2"
           align="center"
           style={{color:"#7b40c0",marginTop:'20px',marginBottom:'10px',padding:'10px',fontWeight:"500"}}          
-        >Create Your Customer Account          
+        >Create Thehina Admin Account          
         </Typography>  
         
         <Grid container  spacing={1} style={{padding:"18px"}} >
           
-        <Grid item md={3}>
+        <Grid item md={4} xs={3}>
+          {/* <FormControl>
                 <InputLabel htmlFor="idType">Id Type</InputLabel>
                     <Select
                       fullWidth
@@ -205,14 +212,39 @@ export const UserSignup = () => {
                       }}
                       error={errorIdType===true?true:null}
                     >
-                      <option aria-label="None" value="" />
-                      <option value={"Saudi National Id"}>Saudia National Id</option>
-                      <option value={"Saudi Iqama"}>Saudi Iqama</option>
-                      <option value={"No Saudi Id or Iqama"}>No Saudi Id or Iqama</option>
+                      
+                      <MenuItem value={"Saudi National Id"}>Saudia National Id</MenuItem>
+                      <MenuItem value={"Saudi Iqama"}>Saudi Iqama</MenuItem>
+                      <MenuItem value={"No Saudi Id or Iqama"}>No Saudi Id or Iqama</MenuItem>
                     </Select>
+              </FormControl> */}
+          <FormControl className={classes.formControl}>
+            <InputLabel id="userIdType">Id Type</InputLabel>
+            <Select
+              labelId="userIdType"
+              id="userIdType"
+                      value={idType || 'Select Id'}
+
+                      onChange={e=>{setIdType(e.target.value)
+                        if(!e.target.value){
+                          setErrorIdType(true)
+                        }
+                        else{
+                          setErrorIdType(false)
+                        }
+                      
+                      }}
+                      error={errorIdType===true?true:null}
+              
+            >
+              <MenuItem value={"Saudi National Id"}>Saudia National Id</MenuItem>
+              <MenuItem value={"Saudi Iqama"}>Saudi Iqama</MenuItem>
+              <MenuItem value={"No Saudi Id or Iqama"}>No Saudi Id or Iqama</MenuItem>
+            </Select>
+         </FormControl>
             </Grid>
         
-        <Grid item md={9}>
+        <Grid item md={8} xs={9}>
                 <TextField
                   label="Id Number"
                   id="userIdNumber"
@@ -238,7 +270,7 @@ export const UserSignup = () => {
                 />
           </Grid>
          
-          <Grid item  md={6}>
+          <Grid item  md={6} xs={12}>
         <TextField          
               label="Full Name in English"
               id="userEName"             
@@ -262,7 +294,7 @@ export const UserSignup = () => {
             />
         </Grid>
 
-        <Grid item md={6}>
+        <Grid item md={6} xs={12}>
             <TextField
               label="Full Name in Arabic"
               id="userAName"
@@ -290,7 +322,7 @@ export const UserSignup = () => {
           </Grid>
            
         
-        <Grid item md={6}> 
+        <Grid item md={6} xs={12}> 
         <TextField
              label="Email"
              type="email"
@@ -323,7 +355,7 @@ export const UserSignup = () => {
          
           
         
-        <Grid item md={6}>
+        <Grid item md={6} xs={12}>
             <TextField              
               type="password"
               label="Password"
@@ -349,7 +381,7 @@ export const UserSignup = () => {
               helperText={errorPassword===true?"Password should have at least 8 characters, including one upper case, one lower case, one digit and one special character.":null}
               />
           </Grid>
-          <Grid item md={6} style={{ marginTop: '10px' }}>
+          <Grid item md={6} xs={6} style={{ marginTop: '10px' }}>
           <TextField
               id="userDate"
               label="DOB"
@@ -370,7 +402,7 @@ export const UserSignup = () => {
               helperText={errorDOB===true?"*Required Field":null}
             />
             </Grid>
-          <Grid item md={6} style={{ marginTop: '10px' }}>
+          <Grid item md={6} xs={6} style={{ marginTop: '10px' }}>
             <InputLabel htmlFor="Gender">Gender</InputLabel>
             <Select
               fullWidth
@@ -395,7 +427,7 @@ export const UserSignup = () => {
             </Select>
             </Grid>
 
-        <Grid item md={3} style={{ marginTop: '10px' }}>
+        <Grid item md={3} xs={3} style={{ marginTop: '10px' }}>
             <InputLabel htmlFor="idType">Country Code</InputLabel>
                 <Select
                   fullWidth
@@ -419,7 +451,7 @@ export const UserSignup = () => {
                 </Select>
         </Grid>
 
-          <Grid item md={9} style={{ marginTop: '10px' }}> 
+          <Grid item md={9} xs={9} style={{ marginTop: '10px' }}> 
         <TextField                     
             label="Mobile Number"
             id="userMobileNumber"
@@ -443,7 +475,7 @@ export const UserSignup = () => {
            helperText={errorPhoneNumber===true?"Please provide a valid mobile number":null}
           /> 
         </Grid>
-        <Grid item md={12} style={{ marginTop: '10px' }}>
+        <Grid item md={12} xs={12} style={{ marginTop: '10px' }}>
             <InputLabel htmlFor="region">Region/District Type</InputLabel>
             <Select
               fullWidth
@@ -494,13 +526,7 @@ export const UserSignup = () => {
                     multiple
                     accept="image/*"
                     onChange={(e) => {
-                      if(e.target.files[0]){
-                        setImage(e.target.files[0])
-                        setErrorImage(false)
-                      }else{
-                        setErrorImage(true)
-                      }
-    
+                      setImage(e.target.files[0]);
                     }}
                    
                   />
@@ -509,11 +535,7 @@ export const UserSignup = () => {
             <Grid item md={8} style={{ marginLeft:'-100px' }}> 
               <InputLabel component="p" >{image?image.name:null}</InputLabel>
             </Grid>    
-            {errorImage===true?
-              <Grid item md={12} >
-                <Alert severity="error">Profile Image is Required</Alert>
-              </Grid>
-               : null}
+           
         
            
 
@@ -526,7 +548,7 @@ export const UserSignup = () => {
                   style={{marginTop: "8px",color:"white",backgroundColor:"#7b40c0",textTransform:"capitalize"}}
                   type="submit"
                   onClick={() => {                     
-                    submitSignup(idType,idNumber,name, arabicName, email,password,phoneNumber,dateOfBirth,gender,region,"User")}}
+                    submitSignup(idType,idNumber,name, arabicName, email,password,phoneNumber,dateOfBirth,gender,region,"Admin")}}
                 >
                   Sign Up
                 </Button>
@@ -551,16 +573,7 @@ export const UserSignup = () => {
                   <Typography variant="body2" gutterBottom style={{color:'#A599B2',marginTop:'-7px'}}>By creating an account, you agree to our Terms & conditions and Privacy policy</Typography>
                   </CardContent>
               
-                <CardActions style={{justifyContent:'center'}}>               
-                  <Button
-                    fullWidth
-                    style={{ marginTop: "10px",backgroundColor:'#E0E0E0',color:'#7b40c0',textTransform:"capitalize" }}
-                    onClick={() => router.push("/signup/consultant")}
-                  >
-                    Register as Consultant
-                </Button>
-                  
-                </CardActions>
+               
                 <CardActions style={{ justifyContent: "center" }}>
                     <Button
                         style={{ marginTop: "10px",color:"#DA71D4",textTransform:"capitalize" }}

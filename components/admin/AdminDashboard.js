@@ -21,7 +21,6 @@ import { useRouter } from "next/router";
 import Consultants from './manageconsultant/Consultants'
 import Activities from './Activities'
 import Users from './manageruser/Users'
-
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Avatar from '@material-ui/core/Avatar';
@@ -29,10 +28,9 @@ import PeopleIcon from '@material-ui/icons/People';
 import { MenuItem } from "@material-ui/core";
 import Profile from './Profile';
 import cookie from 'js-cookie'
-import Router from 'next/router';
-import NProgress from 'nprogress';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
-
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import Admins from './manageAdmins/Admins';
 
 
 const drawerWidth = 230;
@@ -114,13 +112,6 @@ const ListItem = withStyles({
           color: "white"
         }
       },
-      // "&:hover": {
-      //   backgroundColor: "#2B4B80",
-      //   color: "white",
-      //   "& .MuiListItemIcon-root": {
-      //     color: "white"
-      //   }
-      // }
     },
     selected: {}
   })(MuiListItem);
@@ -154,7 +145,24 @@ export default function AdminDashboard(props) {
     setOpen(false);
     setHide(true)
   };
-  // console.log("decode",props.userDetail)
+  // console.log("Admin Detail",props.userDetail)
+  // const getUserDetail = () => {
+  //   // dispatching id
+  //   dispatch(actions.userId(props.userDetail.id));
+  //   axios.get(baseURL + `/user?id=${props.userDetail.id}`).then((response) => {
+  //     dispatch(actions.userDetail(response.data));
+  //     dispatch(actions.updateProfile(false));
+  //   });
+  // };
+  // const updateProfile = useSelector((state) => {
+  //   return state.consultantReducer.updateProfile;
+  // });
+  // const userInfo = useSelector((state) => {
+  //   return state.consultantReducer.userLoggedInDetail.user;
+  // });
+  // useEffect(() => {
+  //   getUserDetail();
+  // }, [updateProfile]);
   return (
     
 
@@ -168,30 +176,30 @@ export default function AdminDashboard(props) {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar style={{display:'flex',justifyContent:'space-between'}}>
-          <IconButton
-            color="primary"
-            // style={{backgroundColor:'white'}}
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
+      <Toolbar style={{display:'flex',justifyContent:'space-between'}}>
+            <IconButton
+              color="primary"
+              // style={{backgroundColor:'white'}}
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
 
-            edge="start"
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open,
-            })}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-        {hide===true?
-          <img
-            src="https://thehina.com/assets/img/logo/logo.png"
-            
-            height="40%"
-          />:
-          null}
-          </Typography>
-          
+              edge="start"
+              className={clsx(classes.menuButton, {
+                [classes.hide]: open,
+              })}
+            >
+                <MenuIcon />
+            </IconButton>
+
+            <Typography variant="h6" noWrap>
+                  {hide===true?
+                    <img
+                      src="https://thehina.com/assets/img/logo/logo.png"
+                      
+                      height="40%"
+                    />:
+                    null}
+            </Typography>          
 
         <div>
               <IconButton
@@ -262,10 +270,7 @@ export default function AdminDashboard(props) {
         <Divider />
         <List component="nav" aria-label="main mailbox folders" style={{marginTop:'30px'}}>
                     <ListItem button selected={selectedIndex === 0} onClick={() => {setComponent('profile') , setSelectedIndex(0)}}>
-                        <ListItemIcon>
-                            <AccountCircleIcon />
-                        </ListItemIcon>
-
+                        <ListItemIcon><AccountCircleIcon /></ListItemIcon>
                         <ListItemText disableTypography  primary="Profile" />
                     </ListItem>
                     <Divider  />
@@ -273,23 +278,30 @@ export default function AdminDashboard(props) {
                         <ListItemIcon>
                            <DashboardIcon />
                         </ListItemIcon>
-
                         <ListItemText disableTypography   primary="Consultant" />
                     </ListItem>
                     <Divider />
+
                     <ListItem button selected={selectedIndex === 2} onClick={() => {setComponent('users'), setSelectedIndex(2)}}>
                         <ListItemIcon>
                             <PeopleIcon />
                         </ListItemIcon>
-
                         <ListItemText variant="h3" disableTypography   primary="Clients" />
                     </ListItem>
                     <Divider />
-                    <ListItem button selected={selectedIndex === 3} onClick={() => {setComponent('activities'), setSelectedIndex(3)}}>
+
+                    <ListItem button selected={selectedIndex === 3} onClick={() => {setComponent('Admin'), setSelectedIndex(3)}}>
+                        <ListItemIcon>
+                            <SupervisorAccountIcon />
+                        </ListItemIcon>
+                        <ListItemText variant="h3" disableTypography   primary="Admin" />
+                    </ListItem>
+                    <Divider />
+
+                    <ListItem button selected={selectedIndex === 4} onClick={() => {setComponent('activities'), setSelectedIndex(4)}}>
                         <ListItemIcon>
                             <MailOutlineIcon />
                         </ListItemIcon>
-
                         <ListItemText variant="h3" disableTypography   primary="Activities" />
                     </ListItem>
         </List>    
@@ -306,6 +318,9 @@ export default function AdminDashboard(props) {
           :          
           component === 'users' ?
           <Users /> 
+          :
+          component === 'Admin' ?
+          <Admins /> 
           :
           component === 'activities' ?
           <Activities />      

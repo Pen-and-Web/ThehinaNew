@@ -1,8 +1,8 @@
-import {USER,DELETE_USER,CONSULTANT,DELETE_CONSULTANT,ACTIVITIES} from '../types';
+import {USER,DELETE_USER,CONSULTANT,DELETE_CONSULTANT,ACTIVITIES,ADMIN} from '../types';
 import axios from 'axios';
 import {baseURL} from '../../../env'
+
 export const user=(data)=>{
-  // console.log("data in action",data)
   return{
     type:USER,
     payload:data,
@@ -43,10 +43,19 @@ export const deleteConsultant=(id,role)=>{
 }
 
 
+
 export const activities=(data)=>{
  
   return{
     type:ACTIVITIES,
+    payload:data,
+  }
+}
+
+
+export const adminDetails=(data)=>{
+  return{
+    type:ADMIN,
     payload:data,
   }
 }

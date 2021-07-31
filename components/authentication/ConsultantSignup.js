@@ -127,12 +127,13 @@ const ConsultantSignup = () => {
       idType === "" ||
       region === "" ||
       gender === "" ||
-      dateOfBirth === ""
+      dateOfBirth === "" ||
+      image === ""
     ) {
       setDisable(false);
-      setLoader(true);
-      setBtnDisable(true);
-      // console.log("found error");
+      setLoader(false);
+      setBtnDisable(false);
+      
       if (!idType) {
         setErrorIdType(true);
       }
@@ -171,6 +172,9 @@ const ConsultantSignup = () => {
       // }
       if (!gender) {
         setErrorGender(true);
+      }
+      if (!image) {
+        setErrorImage(true);
       }
       if (!region) {
         setErrorRegion(true);
@@ -263,6 +267,7 @@ const ConsultantSignup = () => {
   const [errorSummaryOfExpertise, setErrorSummaryOfExpertise] = useState(false);
 
   const [image, setImage] = useState("");
+  const [errorImage, setErrorImage] = useState(false);
 
   const [region, setRegion] = useState("");
   const [errorRegion, setErrorRegion] = useState(false);
@@ -695,15 +700,26 @@ const ConsultantSignup = () => {
                 multiple
                 accept="image/*"
                 onChange={(e) => {
-                  setImage(e.target.files[0]);
+                  if(e.target.files[0]){
+                    setImage(e.target.files[0])
+                    setErrorImage(false)
+                  }else{
+                    setErrorImage(true)
+                  }
+
                 }}
               />
             </Button>
           </Grid>
           <Grid item md={8} style={{ marginLeft: "-100px" }}>
+          
             <InputLabel component="p">{image ? image.name : null}</InputLabel>
           </Grid>
-
+          {errorImage===true?
+          <Grid item md={12} >
+            <Alert severity="error">Profile Image is Required</Alert>
+          </Grid>
+           : null}
           <Grid item md={12}>
             <CardActions style={{ justifyContent: "center", padding: "20px" }}>
             {btnDisable===false?
