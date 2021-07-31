@@ -4,7 +4,7 @@ const { parse } = require("url");
 const next = require("next");
 
 // const dev = process.env.env !== 'production'
-const dev = true;
+const dev = false;
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
