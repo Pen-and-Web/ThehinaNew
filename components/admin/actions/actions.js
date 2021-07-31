@@ -1,4 +1,4 @@
-import {USER,DELETE_USER,CONSULTANT,DELETE_CONSULTANT,ACTIVITIES,ADMIN} from '../types';
+import {USER,DELETE_USER,CONSULTANT,DELETE_CONSULTANT,ACTIVITIES,ADMINDETAIL,ADMIN_ID,ADMIN,UPDATE_ADMINPROFILE} from '../types';
 import axios from 'axios';
 import {baseURL} from '../../../env'
 
@@ -52,10 +52,34 @@ export const activities=(data)=>{
   }
 }
 
-
-export const adminDetails=(data)=>{
+export const admin=(data)=>{
+  // console.log("data in action",data)
   return{
     type:ADMIN,
+    payload:data,
+  }
+}
+
+export const adminDetails=(data)=>{
+  console.log("Admin Details in actions",data);
+  return{
+    type:ADMINDETAIL,
+    payload:data,
+  }
+}
+
+
+export const adminId=(id)=>{
+  return{
+    type:ADMIN_ID,
+    payload:id,
+  }
+}
+
+
+export const updateAdminProfile=(data)=>{
+  return{
+    type:UPDATE_ADMINPROFILE,
     payload:data,
   }
 }

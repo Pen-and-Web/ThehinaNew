@@ -14,6 +14,8 @@ import Select from '@material-ui/core/Select';
 import axios from 'axios'
 import { useDispatch,useSelector } from "react-redux";
 import * as actions from '../redux/actions'
+import { Alert, AlertTitle } from '@material-ui/lab';
+import { baseURL } from "../../../env";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -41,13 +43,30 @@ const UpdateAppointment = ({data}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [status,setStatus] = useState("");
-  // console.log("data in update appointment ",data);
-  const submit = async( status)=>{
-    // console.log("Status Value ",status)
-    // console.log("Object ID ",data.id)
+  const [alert,setAlert] = useState(false);
+  const [alertMessage,setAlertMessage] = useState("");
+
+  const submit = ( statusValue)=>{
+    setAlert(false)    
+    const statusChange = {
+      status: statusValue,
+    };  
+    axios
+      .patch(baseURL + `/appointment?id=${data.id}`, statusChange)
+      .then((res) =>{
+        if(res.data.message){
+          setAlertMessage(res.data.message)
+          setAlert(true)
+          setTimeout(() => {
+            dispatch(actions.submitUpdateRecordAppointment(true))
+        }, 5000);
+        }
+        
+        // dispatch(actions.submitUpdateRecordAppointment(true))
+      });
+  
+    // dispatch(actions.updateAppointment(data.id,status))
     
-    dispatch(actions.updateAppointment(data.id,status))
-    dispatch(actions.submitUpdateRecordAppointment(true))
 
   }
   return (
@@ -59,7 +78,7 @@ const UpdateAppointment = ({data}) => {
         <Paper elevation={3} style={{marginTop:"20px"}} >  
         <form  noValidate autoComplete="off" style={{padding:'30px'}}>
         
-        <Typography component="p" variant="h5" color="primary">Update Client Appointment</Typography>
+        {/* <Typography component="p" variant="h5" color="primary">Update Client Appointment</Typography>
         <TextField
             id="clientName"
             label="Client Name"
@@ -133,9 +152,18 @@ const UpdateAppointment = ({data}) => {
               step: 300, // 5 min
             }}
           />
-          </Grid>
+          </Grid> */}
+        <Grid container>
+        <Grid item xs={12} style={{marginTop:'15px'}}>
+        <Alert severity="info">
+        <AlertTitle>Info</AlertTitle>
+           <p><strong>Approved</strong> Appointment is booked and zoom meeting link will be sent to client and consultant on its email. </p>
+           <p><strong>Declined</strong> Appointment is declined.</p> 
+           <p><strong>Resolved</strong> Appointment is completed and survey link will be sent to client and consultant on its email.</p>
+        </Alert>
+        </Grid>
           <Grid item xs={12} style={{marginTop:'15px'}}>
-                <InputLabel htmlFor="idType">Status</InputLabel>
+                <InputLabel htmlFor="idType">Select Status</InputLabel>
                     <Select
                       fullWidth
                       native
@@ -148,8 +176,10 @@ const UpdateAppointment = ({data}) => {
                       <option value={"Resolved"}>Resolved</option>
                     </Select>
             </Grid>
+          
+            
         </Grid>
-      
+        
             {/* {console.log("selected status",status)} */}
         <Button
             variant="contained"
@@ -160,6 +190,13 @@ const UpdateAppointment = ({data}) => {
           >
             Update
           </Button>
+          {alert===true?
+                <Grid item xs={12} style={{marginTop:'15px'}}>
+                    <Alert severity="success">{alertMessage}</Alert>
+                </Grid>
+                :
+                null
+            }
        </form>   
        
         </Paper>

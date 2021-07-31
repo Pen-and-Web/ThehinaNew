@@ -1,11 +1,13 @@
-import {USER,CONSULTANT,DELETE_USER, DELETE_CONSULTANT,ACTIVITIES,ADMIN,ADMINDETAIL} from '../types';
+import {USER,CONSULTANT,DELETE_USER, DELETE_CONSULTANT,ACTIVITIES,ADMIN,ADMINDETAIL,UPDATE_ADMINPROFILE} from '../types';
 
 const adminState = {
     adminDetail:{},
+    adminId:"",
     userData:[],
     consultantData:[],
     adminData:[],
-    activities:[]   
+    activities:[],
+    updateAdminProfile: false,   
 }
 
 const adminReducer = (state = adminState, { type, payload }) => {
@@ -39,6 +41,7 @@ const adminReducer = (state = adminState, { type, payload }) => {
         adminData: payload,
       };
     case ADMINDETAIL:
+      console.log("Admin Details in actions",payload);
       return {
         ...state,
         adminDetail: payload,
@@ -48,6 +51,11 @@ const adminReducer = (state = adminState, { type, payload }) => {
           ...state,
           activities: payload,
         };
+    case UPDATE_ADMINPROFILE:
+      return {
+        ...state,
+        updateAdminProfile: payload,
+      };
     default:
       return state;   
   }
