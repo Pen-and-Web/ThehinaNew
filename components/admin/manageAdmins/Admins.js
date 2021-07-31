@@ -64,7 +64,7 @@ const Admins = () =>{
       axios.get(baseURL+'/user?role=Admin')
       .then(response=>{          
             console.log(response,"admin") 
-        dispatch(actions.adminDetails(response.data.user));
+        dispatch(actions.admin(response.data.user));
         })
       .catch(err=>{
         console.log(err)

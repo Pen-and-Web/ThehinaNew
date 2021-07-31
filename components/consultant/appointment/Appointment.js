@@ -110,14 +110,14 @@ const Appointment = () =>{
     const userId = useSelector(state=>{ return state.consultantReducer.userId});
     const [data,setData] = useState({id:"",clientName:"",email:"",startTime:"",endTime:"",date:"",status:""});
     const submitUpdateRecord = useSelector(state=>{ return state.consultantReducer.submitUpdateRecordAppointment});
-    const [previewOnUpdateRecord,setPreviewOnUpdateRecord] = useState(false);
+    // const [previewOnUpdateRecord,setPreviewOnUpdateRecord] = useState(false);
     const [feedback,setFeedback] = useState({stars:null,review:null});
     const dispatch = useDispatch();
 
-    const getAppointment = async() => {
-      await axios.get(baseURL+`/appointment?consultantId=${userId}`)
+    const getAppointment = () => {
+       axios.get(baseURL+`/appointment?consultantId=${userId}`)
             .then(response=>{
-              setPreviewOnUpdateRecord(false)
+              // setPreviewOnUpdateRecord(false)
 
               dispatch(actions.appointmentDetails(response.data.Appointments))
               dispatch(actions.submitUpdateRecordAppointment(false))      
@@ -126,22 +126,22 @@ const Appointment = () =>{
     }
     const appointmentRecords = useSelector(state=>{ return state.consultantReducer.appointmentDetails}); 
     
-
-    useEffect(()=>{getAppointment()
-      console.log("on preview button press refresh")},[previewOnUpdateRecord,userId])
-    //Preview updated record on Table
     const getRefreshAppointment= async()=>{
       await axios.get(baseURL+`/appointment?consultantId=${userId}`)
       .then(response=>{
         dispatch(actions.appointmentDetails(response.data.Appointments))
       })
    }
+    useEffect(()=>{getAppointment()
+      },[submitUpdateRecord,userId])
+    //Preview updated record on Table
+   
 
-    setTimeout(() => {
-        console.log("Checking function calling");
-      getRefreshAppointment()
+    // setTimeout(() => {
+    //     console.log("Checking function calling");
+    //   getRefreshAppointment()
       
-    }, 60000);
+    // }, 60000);
   
     return(  
       
@@ -259,7 +259,7 @@ const Appointment = () =>{
             </Breadcrumbs>
             {/* on Update in update component condition in redux check of  submitUpdateRecord then it will return to appointment and trigger updated record.*/}
             {submitUpdateRecord===true?  setComponent("appointment") :null}
-            {submitUpdateRecord===true?  setPreviewOnUpdateRecord(true) :null}
+            {/* {submitUpdateRecord===true?  setPreviewOnUpdateRecord(true) :null} */}
             {/* condition ends here */}
      <IconButton    onClick={()=>{setComponent("appointment")}} color="primary">
           <ArrowBackIosIcon /></IconButton>

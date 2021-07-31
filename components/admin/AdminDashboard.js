@@ -1,18 +1,10 @@
 import React from 'react';
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import clsx from 'clsx';
 import { makeStyles, useTheme,withStyles } from '@material-ui/core/styles';
 import MuiListItem from "@material-ui/core/ListItem";
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
+import {List,Toolbar,AppBar,Drawer,CssBaseline,Typography,Divider,IconButton,Menu,Avatar, CircularProgress} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import Menu from '@material-ui/core/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -23,7 +15,6 @@ import Activities from './Activities'
 import Users from './manageruser/Users'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import Avatar from '@material-ui/core/Avatar';
 import PeopleIcon from '@material-ui/icons/People';
 import { MenuItem } from "@material-ui/core";
 import Profile from './Profile';
@@ -31,7 +22,10 @@ import cookie from 'js-cookie'
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import Admins from './manageAdmins/Admins';
-
+import * as actions from './actions/actions'
+import axios from 'axios'
+import { baseURL, imgUrl } from "../../env";
+import { useDispatch, useSelector } from "react-redux";
 
 const drawerWidth = 230;
 
@@ -124,6 +118,7 @@ export default function AdminDashboard(props) {
   const [component, setComponent] = useState('profile');
   const [hide,setHide] =useState(true);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openM = Boolean(anchorEl);
@@ -145,24 +140,25 @@ export default function AdminDashboard(props) {
     setOpen(false);
     setHide(true)
   };
-  // console.log("Admin Detail",props.userDetail)
-  // const getUserDetail = () => {
-  //   // dispatching id
-  //   dispatch(actions.userId(props.userDetail.id));
-  //   axios.get(baseURL + `/user?id=${props.userDetail.id}`).then((response) => {
-  //     dispatch(actions.userDetail(response.data));
-  //     dispatch(actions.updateProfile(false));
-  //   });
-  // };
-  // const updateProfile = useSelector((state) => {
-  //   return state.consultantReducer.updateProfile;
-  // });
-  // const userInfo = useSelector((state) => {
-  //   return state.consultantReducer.userLoggedInDetail.user;
-  // });
-  // useEffect(() => {
-  //   getUserDetail();
-  // }, [updateProfile]);
+  console.log("Admin Detail",props.userDetail)
+  const getAdminDetail = () => {
+    axios.get(baseURL + `/user?id=${props.userDetail.id}`)
+    .then((response) => {
+      console.log(response,"Admin Detail Response")
+      dispatch(actions.adminDetails(response.data.user));
+      dispatch(actions.updateAdminProfile(false));
+    })
+    .catch(error=>console.log(error))
+  };
+  const updateAdminProfile = useSelector((state) => {
+    return state.adminReducer.updateAdminProfile;
+  });
+  const adminDetail = useSelector((state) => {
+    return state.adminReducer.adminDetail;
+  });
+  useEffect(() => {
+    getAdminDetail();
+  }, [updateAdminProfile]);
   return (
     
 
@@ -210,9 +206,33 @@ export default function AdminDashboard(props) {
                 color="inherit"
               >
                 <Typography variant="h5"  style={{marginRight:'9px',color:'#730DDC',fontSize:'15px',fontWeight:"600"}}>
-                 Admin
+                 {adminDetail?.role}
                 </Typography>
-                <Avatar alt="profile picture"  className={classes.large} />
+                {    
+                   adminDetail.imageUrl?
+                       <Avatar
+                       alt="profile picture"
+                       src={`${imgUrl}/${adminDetail.imageUrl}`}
+                       className={classes.large}
+                       />
+                       :
+                    adminDetail.gender==="Male"?
+                      <Avatar
+                      alt="profile picture"
+                      src='/maleAvatar.png'
+                      style={{ width: "50px", height: "50px" }}
+                      />                        
+                        :
+                    adminDetail.gender==="Female"?
+                        <Avatar
+                        alt="profile picture"                        
+                        src='/femaleAvatarThehina.png'
+                        style={{ width: "50px", height: "50px" }}
+                        />                        
+                        : 
+                      <CircularProgress />                      
+                       
+                      }
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -289,13 +309,19 @@ export default function AdminDashboard(props) {
                         <ListItemText variant="h3" disableTypography   primary="Clients" />
                     </ListItem>
                     <Divider />
-
-                    <ListItem button selected={selectedIndex === 3} onClick={() => {setComponent('Admin'), setSelectedIndex(3)}}>
-                        <ListItemIcon>
-                            <SupervisorAccountIcon />
-                        </ListItemIcon>
-                        <ListItemText variant="h3" disableTypography   primary="Admin" />
-                    </ListItem>
+                    {
+                      adminDetail?.role==="SuperAdmin"?
+                      <>
+                        <ListItem button selected={selectedIndex === 3} onClick={() => {setComponent('Admin'), setSelectedIndex(3)}}>                     
+                            <ListItemIcon>
+                              <SupervisorAccountIcon />
+                            </ListItemIcon>
+                          <ListItemText variant="h3" disableTypography   primary="Admin" />                      
+                        </ListItem>
+                      </>
+                      :
+                      null
+                    }
                     <Divider />
 
                     <ListItem button selected={selectedIndex === 4} onClick={() => {setComponent('activities'), setSelectedIndex(4)}}>

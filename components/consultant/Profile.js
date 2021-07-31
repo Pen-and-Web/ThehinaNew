@@ -57,7 +57,7 @@ const Profile = () => {
 
           {userDetail ? (
             <Grid container spacing={1} style={{ marginTop: "10px" }}>
-              <Grid item md={6} xs={12}>
+              <Grid item md={7} xs={12}>
                 <Paper
                   elevation={3}
                   style={{ padding: "10px", backgroundColor: "#FFFFFF" }}
@@ -204,7 +204,7 @@ const Profile = () => {
                 </Paper>
               </Grid>
 
-              <Grid item md={6} xs={6}>
+              <Grid item md={5} xs={6}>
               {userDetail.IBAN===""?
                    <BankAccount />
               :
@@ -217,7 +217,7 @@ const Profile = () => {
               </Grid>
                   
 
-              <Grid item md={6} xs={12}>
+              <Grid item md={7} xs={12}>
                 <Paper
                   elevation={3}
                   style={{ padding: "10px", backgroundColor: "#FFFFFF" }}
