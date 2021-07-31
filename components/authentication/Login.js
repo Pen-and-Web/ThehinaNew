@@ -97,10 +97,15 @@ const Login = () => {
         } else if (response.role === "Consultant") {
           setLoader(true);
           router.push("/consultant");
-        } else if (response.role === "Admin") {
+        } else if (response.role === "SuperAdmin") {
           setLoader(true);
           // console.log("3");
           router.push("/admin");
+        }
+        else if (response.role === "Admin") {
+          setLoader(true);
+          // console.log("3");
+          router.push("/subadmin");
         } else {
           setLoader(false);
         }

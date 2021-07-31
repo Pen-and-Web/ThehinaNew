@@ -30,7 +30,7 @@ const classes = useStyles();
     <>
       <div>
         <Head>
-          <title>Signup Page</title>
+          <title>Signup</title>
         </Head>
       </div>
   <Grid container  style={{backgroundColor:"#F7F8FA"}}  >
