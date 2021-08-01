@@ -48,7 +48,7 @@ const UpdateSchedule = (props) => {
   const userId = useSelector(state=>{ return state.consultantReducer.userId});
   const dispatch = useDispatch();
 
-  const submit = async(subject,date,startTime,endTime)=>{
+  const submit = (subject,date,startTime,endTime)=>{
     const data={
       id:props.data.id,
       subject:subject,
@@ -63,6 +63,7 @@ const UpdateSchedule = (props) => {
       dispatch(actions.submitUpdateRecord(true))
     }
     )
+    .catch(err=>console.log(err))
 
     // dispatch(actions.updateScheduleRecord(data))
     //  dispatch(actions.submitUpdateRecord(true))

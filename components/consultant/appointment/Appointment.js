@@ -131,6 +131,7 @@ const Appointment = () =>{
       .then(response=>{
         dispatch(actions.appointmentDetails(response.data.Appointments))
       })
+      .catch(err=>console.log(err))
    }
     useEffect(()=>{getAppointment()
       },[submitUpdateRecord,userId])
@@ -148,22 +149,22 @@ const Appointment = () =>{
         <>
 
               <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} >
-                    <DialogTitle id="customized-dialog-title" style={{color:"#4AAF51",width:'400px'}} onClose={(e)=>{setOpen(false)}}>
-                        Feedback
+                    <DialogTitle id="customized-dialog-title" style={{color:"#4AAF51"}} onClose={(e)=>{setOpen(false)}}>
+                        Thehina Consultant Survey
                         <Typography variant="body2"  gutterBottom style={{color:'#616466'}}>
-                          
-                          {feedback.review}
+                          Please open the link to complete the survey
+                          {/* {feedback.review} */}
                           </Typography> 
                           <Typography   gutterBottom  >
                           
-                         Rating
+                          <a href="http://206.189.52.233:3000/consultantsurvey/{id}">http://206.189.52.233:3000/consultantsurvey/{id}</a>
                           </Typography>
-                        <Rating                        
+                        {/* <Rating                        
                                value={feedback.stars}
                                 id="starId"
                                 emptyIcon={<StarBorderIcon fontSize="inherit" />}
                                 
-                             />         
+                             />          */}
                    
                     </DialogTitle>
                    
@@ -199,7 +200,7 @@ const Appointment = () =>{
             <TableCell align="left"  style={{color:'white'}}><Typography variant="button" >Time</Typography></TableCell>
             <TableCell align="left"  style={{color:'white'}}><Typography variant="button" >Date</Typography></TableCell>
             <TableCell align="left"  style={{color:'white'}}><Typography variant="button" >Status</Typography></TableCell>
-            <TableCell align="left"  style={{color:'white'}}><Typography variant="button" >Feedback</Typography></TableCell>
+            <TableCell align="left"  style={{color:'white'}}><Typography variant="button" >Survey</Typography></TableCell>
 
             <TableCell align="center" style={{color:'white'}}><Typography variant="button" >Actions</Typography></TableCell>
           </TableRow>
@@ -209,6 +210,7 @@ const Appointment = () =>{
           {
              appointmentRecords?
              appointmentRecords.map((row) => (
+               
             <TableRow key={row._id}>
               <TableCell component="th" scope="row">
               {row.clientData.name}
@@ -217,7 +219,9 @@ const Appointment = () =>{
               <TableCell align="left">{row.startDate.slice(11,16)}-{row.endDate.slice(11,16) }</TableCell>
               <TableCell align="left">{row.endDate.slice(0,10)}</TableCell>
               <TableCell align="left">{row.status}</TableCell>
-              <TableCell align="left">{row.feedback||row.stars?<IconButton color="primary" aria-label="feedbackIcon" onClick={()=>{setOpen(true),setFeedback({stars:row.stars,review:row.feedback})}} ><FeedbackIcon /></IconButton>:null}</TableCell>
+              {/* <TableCell align="left">{row.feedback||row.stars?<IconButton color="primary" aria-label="feedbackIcon" onClick={()=>{setOpen(true),setFeedback({stars:row.stars,review:row.feedback})}} ><FeedbackIcon /></IconButton>:null}</TableCell> */}
+              <TableCell align="left">{row.status==="Resolved"?<IconButton color="primary" aria-label="feedbackIcon" onClick={()=>{setOpen(true),setId(row._id)}} ><FeedbackIcon /></IconButton>:null}</TableCell>
+
               <TableCell align="center">
                   <IconButton  
                   // onClick={() => router.push("/consultant/client")}

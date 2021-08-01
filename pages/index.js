@@ -9,7 +9,9 @@ const Home = () => {
   
   return (
     <div>
-     
+      <Head>
+         <title>Thehina</title>
+      </Head>
      
       <Grid container style={{padding:'30px'}} >
         <Grid item  md={4} ></Grid>

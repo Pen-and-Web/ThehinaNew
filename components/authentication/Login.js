@@ -73,6 +73,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loader, setLoader] = useState(false);
+  const [errorMessage,setErrorMessage] = useState("")
   const [component, setComponent] = useState("login");
   const inherit = grey["#fafafa"]; // #f44336
 
@@ -82,14 +83,34 @@ const Login = () => {
   };
 
   const submitSignin = async (email, password) => {
+    setErrorMessage("")
     setLoader(true);
     await dispatch(actions.login({ email, password }))
       .then((response) => {
-        // console.log("Checking response ", response);
-        response.error?.message ===
-        "Currently you can not sign in to this application!"
-          ? setOpen(true)
-          : null;
+        console.log("Login response ", response);
+        // response.error?.message ===
+        // "Currently you can not sign in to this application!"
+        //   ? setOpen(true)
+        //   : null;
+          if(response.error){
+            if(response.error.error){
+            setErrorMessage(response.error.error)
+            setOpen(true)
+            }
+            if(response.error.message){
+              setErrorMessage(response.error.message)
+              setOpen(true)
+            }
+            
+          }
+          // if(response.status===500){
+          // if(response.error){
+          //     setErrorMessage(response.error)
+          //     setOpen(true)
+          //     console.log("123")
+          //   }
+          // }
+          
         
         if (response.role === "User") {
           setLoader(true);
@@ -107,13 +128,18 @@ const Login = () => {
           // console.log("3");
           router.push("/subadmin");
         } else {
-          setLoader(false);
+         
+            setLoader(false);
+            // setErrorMessage("Internal Server Error")
+            // setOpen(true)
+         
+          
         }
       })
       .catch((error) => {
         setLoader(false);
-        // console.log("Forbidden error message");
-        // console.log("Login Error: ", error);
+        console.log("Forbidden error message");
+        console.log("Login Error: ", error.response);
       });
   };
 
@@ -129,11 +155,11 @@ const Login = () => {
           style={{ color: "#E23545" }}
           onClose={handleClose}
         >
-          Message
+          Login Error
         </DialogTitle>
         <DialogContent dividers>
           <Typography variant="body2" gutterBottom>
-            You cannot signin to thehina. You need to be approve by Admin.
+            {errorMessage}
           </Typography>
         </DialogContent>
       </Dialog>

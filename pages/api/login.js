@@ -37,7 +37,7 @@ const login = async (req, res) => {
           return res
             .status(403)
             .json({
-              message: "Currently you can not sign in to this application!",
+              message: "Currently you can not sign in to this application! You need to be approved by Admin.",
             });
         }
       } else {

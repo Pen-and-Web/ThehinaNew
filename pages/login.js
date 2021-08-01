@@ -22,7 +22,7 @@ const login = () => {
   return (
     <div >
       <Head>
-        <title>Login Page</title>
+        <title>Login</title>
       </Head>
 
       <Grid container style={{padding:'30px'}} >

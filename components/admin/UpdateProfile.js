@@ -11,6 +11,9 @@ import EditIcon from "@material-ui/icons/Edit";
 import * as actions from "./actions/actions";
 import { baseURL } from "../../env";
 import Alert from "@material-ui/lab/Alert";
+import Avatar from '@material-ui/core/Avatar';
+import ProfilePicture from './ProfilePicture'
+
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
@@ -51,17 +54,19 @@ const UpdateProfile = () => {
       dateOfBirth: dob,
       phoneNumber: phoneNumber,    
     };
-    axios.patch(baseURL + `/user?id=${adminDetail._id}`, body).then((res) => {
+    axios.patch(baseURL + `/user?id=${adminDetail._id}`, body)
+    .then((res) => {
       if (res.data.message === "User was updated successfully!") {
         setSuccessAlert(true);
         dispatch(actions.updateAdminProfile(true));
       }
-    });
+    })
+    .catch(err=>console.log(err))
   };
 
   return (
     <>
-      <Grid container spacing={1}>
+      <Grid container spacing={2} >
         <Grid item md={6} xs={12}>
           <Paper elevation={3} style={{ marginTop: "20px" }}>
             <form noValidate autoComplete="off" style={{ padding: "30px" }}>
@@ -69,29 +74,7 @@ const UpdateProfile = () => {
                 Update Profile
               </Typography>
               <Grid container spacing={1}>
-                {/* <Grid item  md={3}  >
-        <Avatar alt="profile picture" 
-          src={`/uploads/${adminDetail.imageUrl}`}
-          style={{width:"170px",height:"170px"}}
-          />
-          
-      </Grid>
-      <Grid item md={1} xs={1}>
-        <Button
-          variant="contained"
-          component="label"
-          >
-         <EditIcon />
-          <input
-            type="file"
-            hidden
-            multiple
-            accept="image/*"
-            onChange={(e)=>{setProfilePicture(e.target.value)}}
-          />
-        </Button>
-      </Grid>
-      <Grid item md={8} xs={8} ></Grid> */}
+                
                 <Grid item md={6} xs={12}>
                   <TextField
                     label="Name"
@@ -192,11 +175,15 @@ const UpdateProfile = () => {
             </form>
           </Paper>
         </Grid>
-        
-        <Grid item md={6} xs={12} style={{ marginTop: "20px" }}>
-          {/* <BankAccount /> */}
-        </Grid>
-      </Grid>
+       
+        <Grid item md={4} xs={12}>
+            <ProfilePicture />
+       </Grid>
+       
+       
+       </Grid>
+      
+       
     </>
   );
 };

@@ -148,7 +148,7 @@ const Appointment = () =>{
                   onClick={()=>{setComponent("update"),setData({id:row._id,clientName:row.clientData.name,email:row.clientData.email,startTime:row.startDate.slice(11,16),endTime:row.endDate.slice(11,16),date:row.endDate.slice(0,10),status:row.status})}}                  
                   ><VisibilityIcon  color="primary"/>
                   </IconButton>
-                  {row.status==="Approved"?<IconButton  onClick={()=>{setOpen(true),setAppointmentId(row._id)}}> <FeedbackIcon  color="primary"/></IconButton>:null}
+                  {row.status==="Resolved"?<IconButton  onClick={()=>{setOpen(true),setAppointmentId(row._id)}}> <FeedbackIcon  color="primary"/></IconButton>:null}
                   
                   </TableCell>
             </TableRow>
@@ -205,11 +205,13 @@ const Appointment = () =>{
         <DialogTitle id="form-dialog-title">Feedback</DialogTitle>
         <DialogContent>
           <DialogContentText>
-           Rate your experience to help us improve our service quality.
+           Please open the link and complete the survey to help us improve our service quality.
           </DialogContentText>
           <Box component="fieldset" mb={3} borderColor="transparent">
-         
-        <Rating
+          <Typography   gutterBottom  >                          
+                <a href="http://206.189.52.233:3000/survey/{appointmentId}">http://206.189.52.233:3000/survey/{appointmentId}</a>
+          </Typography>
+        {/* <Rating
           name="customized-empty"
           value={starValue}
           id="starId"
@@ -227,11 +229,11 @@ const Appointment = () =>{
             type="text"
             fullWidth
           />
-     
+      */}
 
       </Box>
         </DialogContent>
-       <DialogActions>
+       {/* <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
@@ -242,7 +244,7 @@ const Appointment = () =>{
           color="primary">
             Submit
           </Button>
-        </DialogActions>
+        </DialogActions> */}
       </Dialog>
     </>
    
