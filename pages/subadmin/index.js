@@ -19,7 +19,9 @@ const subadmin = ({userDetail}) => {
  
   return (
     <>
-     
+     <Head>
+      <title>Thehina Sub-Admin</title>
+    </Head>
       <AdminDashboard userDetail={userDetail} />
      
     </>

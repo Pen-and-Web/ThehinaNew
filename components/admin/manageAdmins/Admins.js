@@ -81,6 +81,7 @@ const Admins = () =>{
           .then(res=>{
             setRefreshRecordOnUpdateStatus(true)
           })
+          .catch(err=>console.log(err))
     }
 
     const data = useSelector(state=>{ return state.adminReducer.adminData});

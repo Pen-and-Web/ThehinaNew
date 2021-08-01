@@ -105,7 +105,7 @@ const Activities = () =>{
                   <TableBody>
                     {
                     activities.length>0?
-                    activities.map((row) => (
+                    activities.reverse().map((row) => (
                       <TableRow key={row._id}>
                         <TableCell component="th" scope="row">
                           {row.messageTime}

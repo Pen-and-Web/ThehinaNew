@@ -97,8 +97,8 @@ export const ViewConsultantAppointment = ({userId}) => {
     const [appointmentDetail,setAppointmentDetail] = useState([]);
     const [feedback,setFeedback] = useState("");
 
-    const getAppointment = async() => {
-        await axios.get(baseURL+`/appointment?consultantId=${userId}`)
+    const getAppointment = () => {
+             axios.get(baseURL+`/appointment?consultantId=${userId}`)
               .then(response=>{             
                   setAppointmentDetail(response.data.Appointments)                  
               })

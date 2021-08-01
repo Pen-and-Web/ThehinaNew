@@ -63,7 +63,8 @@ const UpdateAppointment = ({data}) => {
         }
         
         // dispatch(actions.submitUpdateRecordAppointment(true))
-      });
+      })
+      .catch(err=>console.log(err))
   
     // dispatch(actions.updateAppointment(data.id,status))
     
