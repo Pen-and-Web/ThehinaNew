@@ -192,59 +192,30 @@ export const UserSignup = () => {
         
         <Grid container  spacing={1} style={{padding:"18px"}} >
           
-        <Grid item md={4} xs={3}>
-          {/* <FormControl>
-                <InputLabel htmlFor="idType">Id Type</InputLabel>
-                    <Select
-                      fullWidth
-                      native
-                      id="userIdType"
-                      value={idType}
-
-                      onChange={e=>{setIdType(e.target.value)
-                        if(!e.target.value){
-                          setErrorIdType(true)
-                        }
-                        else{
-                          setErrorIdType(false)
-                        }
-                      
-                      }}
-                      error={errorIdType===true?true:null}
-                    >
-                      
-                      <MenuItem value={"Saudi National Id"}>Saudia National Id</MenuItem>
-                      <MenuItem value={"Saudi Iqama"}>Saudi Iqama</MenuItem>
-                      <MenuItem value={"No Saudi Id or Iqama"}>No Saudi Id or Iqama</MenuItem>
-                    </Select>
-              </FormControl> */}
-          <FormControl className={classes.formControl}>
-            <InputLabel id="userIdType">Id Type</InputLabel>
+        <Grid item md={3} xs={3}>
+            <InputLabel htmlFor="idType">Id Type</InputLabel>
             <Select
-              labelId="userIdType"
-              id="userIdType"
-                      value={idType || 'Select Id'}
-
-                      onChange={e=>{setIdType(e.target.value)
-                        if(!e.target.value){
-                          setErrorIdType(true)
-                        }
-                        else{
-                          setErrorIdType(false)
-                        }
-                      
-                      }}
-                      error={errorIdType===true?true:null}
-              
+              fullWidth
+              native
+              value={idType}
+              onChange={(e) => {
+                setIdType(e.target.value);
+                if (!e.target.value) {
+                  setErrorIdType(true);
+                } else {
+                  setErrorIdType(false);
+                }
+              }}
+              error={errorIdType === true ? true : null}
             >
-              <MenuItem value={"Saudi National Id"}>Saudia National Id</MenuItem>
-              <MenuItem value={"Saudi Iqama"}>Saudi Iqama</MenuItem>
-              <MenuItem value={"No Saudi Id or Iqama"}>No Saudi Id or Iqama</MenuItem>
+              <option aria-label="None" value="" ></option>
+              <option value={"Saudi National Id"}>Saudia National Id</option>
+              <option value={"Saudi Iqama"}>Saudi Iqama</option>
+              <option value={"No Saudi Id or Iqama"}>No Saudi Id or Iqama</option>
             </Select>
-         </FormControl>
-            </Grid>
+          </Grid>
         
-        <Grid item md={8} xs={9}>
+        <Grid item md={9} xs={9}>
                 <TextField
                   label="Id Number"
                   id="userIdNumber"

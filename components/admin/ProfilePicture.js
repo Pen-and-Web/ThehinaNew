@@ -43,30 +43,36 @@ const ProfilePicture = () => {
 
   const [successAlert, setSuccessAlert] = useState(false);
   const [errorAlert, setErrorAlert] = useState(false);
-
+  
     
 
   const dispatch = useDispatch();
 
   const updateProfile = () => {
+    setErrorAlert(false);
+    setSuccessAlert(false);
+    setErrorImage(false)
+
 
     if(!image){
-      setErrorAlert(true);
+      setErrorImage(true);
     }
     else{
       setErrorAlert(false);
-      const body = {     
-        file: image      
-      };
-    
-      
-      axios.post(baseURL + `/uploadFile?id=${adminDetail._id}`, body)
+      var form = new FormData();
+      form.append("file", image);
+      const config = { headers: { 'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>' } };
+      axios.post(baseURL + `/uploadFile?id=${adminDetail._id}`, form,config)
       .then((res) => {
-        console.log("",res)
-        // if (res.data.message === "User was updated successfully!") {
-        //   setSuccessAlert(true);
-        //   dispatch(actions.updateProfile(true));
-        // }
+        console.log("Image Response",res)
+        if (res.data.message === "File Uploaded!") {
+          setSuccessAlert(true);
+          dispatch(actions.updateAdminProfile(true));
+        }
+        else{
+          setErrorAlert(true);
+
+        }
       })
       .catch(err=>console.log(err))
     }
@@ -123,12 +129,15 @@ const ProfilePicture = () => {
                 <Grid item md={12} xs={12} style={{marginTop:"5px"}}>
                 {successAlert === true ? (
                   <Alert severity="success">
-                   Bank Account Information has been updated.
+                   Profile Picture updated successfully!
                   </Alert>
                 ) : null}
 
                 {errorAlert === true ? (
-                <Alert severity="error">Please Provide a valid IBAN!</Alert>
+                <Alert severity="error">sorry for the inconvenience, please try again</Alert>
+                ) : null}
+                 {errorImage === true ? (
+                <Alert severity="error">Profile image is required</Alert>
                 ) : null}
                 </Grid>
               </Grid>
