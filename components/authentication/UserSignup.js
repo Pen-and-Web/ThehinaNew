@@ -181,12 +181,12 @@ export const UserSignup = () => {
           component="h2"
           align="center"
           style={{color:"#7b40c0",marginTop:'20px',marginBottom:'10px',padding:'10px',fontWeight:"500"}}          
-        >Create Your Customer Account          
+        >Let's Create your Account          
         </Typography>  
         
         <Grid container  spacing={1} style={{padding:"18px"}} >
           
-        <Grid item md={3}>
+        <Grid item md={3} xs={3}>
                 <InputLabel htmlFor="idType">Id Type</InputLabel>
                     <Select
                       fullWidth
@@ -212,7 +212,7 @@ export const UserSignup = () => {
                     </Select>
             </Grid>
         
-        <Grid item md={9}>
+        <Grid item md={9} xs={9}>
                 <TextField
                   label="Id Number"
                   id="userIdNumber"
@@ -238,7 +238,7 @@ export const UserSignup = () => {
                 />
           </Grid>
          
-          <Grid item  md={6}>
+          <Grid item  md={6} xs={12}>
         <TextField          
               label="Full Name in English"
               id="userEName"             
@@ -262,7 +262,7 @@ export const UserSignup = () => {
             />
         </Grid>
 
-        <Grid item md={6}>
+        <Grid item md={6} xs={12}>
             <TextField
               label="Full Name in Arabic"
               id="userAName"
@@ -290,7 +290,7 @@ export const UserSignup = () => {
           </Grid>
            
         
-        <Grid item md={6}> 
+        <Grid item md={6} xs={12}> 
         <TextField
              label="Email"
              type="email"
@@ -323,7 +323,7 @@ export const UserSignup = () => {
          
           
         
-        <Grid item md={6}>
+        <Grid item md={6} xs={12}>
             <TextField              
               type="password"
               label="Password"
@@ -349,7 +349,7 @@ export const UserSignup = () => {
               helperText={errorPassword===true?"Password should have at least 8 characters, including one upper case, one lower case, one digit and one special character.":null}
               />
           </Grid>
-          <Grid item md={6} style={{ marginTop: '10px' }}>
+          <Grid item md={6} xs={12} style={{ marginTop: '10px' }}>
           <TextField
               id="userDate"
               label="DOB"
@@ -370,7 +370,7 @@ export const UserSignup = () => {
               helperText={errorDOB===true?"*Required Field":null}
             />
             </Grid>
-          <Grid item md={6} style={{ marginTop: '10px' }}>
+          <Grid item md={6} xs={12} style={{ marginTop: '10px' }}>
             <InputLabel htmlFor="Gender">Gender</InputLabel>
             <Select
               fullWidth
@@ -395,7 +395,7 @@ export const UserSignup = () => {
             </Select>
             </Grid>
 
-        <Grid item md={3} style={{ marginTop: '10px' }}>
+        <Grid item md={3} xs={12} style={{ marginTop: '10px' }}>
             <InputLabel htmlFor="idType">Country Code</InputLabel>
                 <Select
                   fullWidth
@@ -419,14 +419,14 @@ export const UserSignup = () => {
                 </Select>
         </Grid>
 
-          <Grid item md={9} style={{ marginTop: '10px' }}> 
+          <Grid item md={9} xs={12} style={{ marginTop: '10px' }}> 
         <TextField                     
             label="Mobile Number"
             id="userMobileNumber"
             type="number"
             fullWidth
-            style={{marginTop:"10px"}}
-            size="small"            
+            size="small"    
+            style={{ marginTop: '10px' }}        
             variant="outlined"
             value={phoneNumber}
             onChange={e=>{
@@ -443,7 +443,7 @@ export const UserSignup = () => {
            helperText={errorPhoneNumber===true?"Please provide a valid mobile number":null}
           /> 
         </Grid>
-        <Grid item md={12} style={{ marginTop: '10px' }}>
+        <Grid item md={12} xs={12} style={{ marginTop: '10px' }}>
             <InputLabel htmlFor="region">Region/District Type</InputLabel>
             <Select
               fullWidth
@@ -479,7 +479,7 @@ export const UserSignup = () => {
             </Grid>
 
             
-            <Grid item md={4} style={{ marginTop: '10px' }}>  
+            <Grid item md={4} xs={12} style={{ marginTop: '10px' }}>  
                 <Button
                   variant="contained"
                   component="label"
@@ -517,7 +517,7 @@ export const UserSignup = () => {
         
            
 
-            <Grid item md={12}>
+            <Grid item md={12} xs={12}>
             <CardActions style={{justifyContent:'center'}}>
               {btnDisable===false?
                   <Button

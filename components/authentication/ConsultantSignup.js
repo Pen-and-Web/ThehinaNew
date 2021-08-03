@@ -302,11 +302,11 @@ const ConsultantSignup = () => {
           style={{ marginTop: "20px", marginBottom: "20px", color: "#7b40c0",fontWeight:"500" }}
           align="center"
         >
-          Create Your Consultant Account
+          Create your Consultant Account
         </Typography>
         
         <Grid container spacing={1} style={{ padding: "18px" }}>
-          <Grid item md={3}>
+          <Grid item md={3} xs={3}>
             <InputLabel htmlFor="idType">Id Type</InputLabel>
             <Select
               fullWidth
@@ -329,7 +329,7 @@ const ConsultantSignup = () => {
             </Select>
           </Grid>
 
-          <Grid item md={9}>
+          <Grid item md={9} xs={9}>
             <TextField
               label="Id Number"
               type="number"
@@ -360,7 +360,7 @@ const ConsultantSignup = () => {
             />
           </Grid>
 
-          <Grid item md={6}>
+          <Grid item md={6} xs={12}>
             <TextField
               label="Full Name in English"
               type="text"
@@ -384,7 +384,7 @@ const ConsultantSignup = () => {
             />
           </Grid>
 
-          <Grid item md={6}>
+          <Grid item md={6} xs={12}>
             <TextField
               label="Full Name in Arabic"
               type="text"
@@ -410,7 +410,7 @@ const ConsultantSignup = () => {
             />
           </Grid>
 
-          <Grid item md={6}>
+          <Grid item md={6} xs={12}>
             <TextField
               label="Email"
               type="email"
@@ -438,7 +438,7 @@ const ConsultantSignup = () => {
             />
           </Grid>
 
-          <Grid item md={6}>
+          <Grid item md={6} xs={12}>
             <TextField
               type="password"
               label="Password"
@@ -465,7 +465,7 @@ const ConsultantSignup = () => {
               }
             />
           </Grid>
-          <Grid item md={6} style={{ marginTop: "10px" }}>
+          <Grid item md={6} xs={12} style={{ marginTop: "10px" }}>
             <TextField
               id="date"
               label="DOB"
@@ -476,7 +476,7 @@ const ConsultantSignup = () => {
             />
           </Grid>
 
-          <Grid item md={6} style={{ marginTop: "10px" }}>
+          <Grid item md={6} xs={12} style={{ marginTop: "10px" }}>
             <InputLabel htmlFor="Gender">Gender</InputLabel>
             <Select
               fullWidth
@@ -498,7 +498,7 @@ const ConsultantSignup = () => {
             </Select>
           </Grid>
 
-          <Grid item md={3} style={{ marginTop: "10px" }}>
+          <Grid item md={3} xs={12} style={{ marginTop: "10px" }}>
             <InputLabel htmlFor="idType">Country Code</InputLabel>
             <Select
               fullWidth
@@ -519,7 +519,7 @@ const ConsultantSignup = () => {
             </Select>
           </Grid>
 
-          <Grid item md={9} style={{ marginTop: "10px" }}>
+          <Grid item md={9} xs={12} style={{ marginTop: "10px" }}>
             <TextField
               label="Mobile Number"
               type="number"
@@ -548,7 +548,7 @@ const ConsultantSignup = () => {
             />
           </Grid>
 
-          <Grid item md={6}>
+          <Grid item md={6} xs={12}>
             <TextField
               label="Main Domain"
               type="text"
@@ -574,7 +574,7 @@ const ConsultantSignup = () => {
             />
           </Grid>
 
-          <Grid item md={6}>
+          <Grid item md={6} xs={12}>
             <TextField
               label="Hour Price"
               type="number"
@@ -596,7 +596,7 @@ const ConsultantSignup = () => {
             />
           </Grid>
 
-          <Grid item md={12}>
+          <Grid item md={12} xs={12}>
             <TextField
               label="Summary of Expertise"
               type="text"
@@ -650,7 +650,7 @@ const ConsultantSignup = () => {
                 />
           </Grid> */}
 
-          <Grid item md={12} style={{ marginTop: "10px" }}>
+          <Grid item md={12} style={{ marginTop: "10px" }} xs={12}>
             <InputLabel htmlFor="region">Region/District Type</InputLabel>
             <Select
               fullWidth
@@ -687,7 +687,7 @@ const ConsultantSignup = () => {
             </Select>
           </Grid>
 
-          <Grid item md={4} style={{ marginTop: "10px" }}>
+          <Grid item md={4} style={{ marginTop: "10px" }} xs={12}>
             <Button
               variant="contained"
               component="label"
@@ -711,7 +711,7 @@ const ConsultantSignup = () => {
               />
             </Button>
           </Grid>
-          <Grid item md={8} style={{ marginLeft: "-100px" }}>
+          <Grid item md={8} xs={12} style={{ marginLeft: "-100px" }}>
           
             <InputLabel component="p">{image ? image.name : null}</InputLabel>
           </Grid>
@@ -720,7 +720,7 @@ const ConsultantSignup = () => {
             <Alert severity="error">Profile Image is Required</Alert>
           </Grid>
            : null}
-          <Grid item md={12}>
+          <Grid item md={12} xs={12}>
             <CardActions style={{ justifyContent: "center", padding: "20px" }}>
             {btnDisable===false?
               <Button
