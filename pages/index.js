@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Login from "../components/authentication/Login";
 import Grid from "@material-ui/core/Grid";
 
-const Home = () => {
+const staticPage = () => {
+	
+	 const router = useRouter();
 
+	  useEffect(()=>{router.push('/index.html')},[])
   
   return (
     <div>
@@ -19,7 +22,6 @@ const Home = () => {
        
 
         <Grid item md={4} xs={12}  style={{marginTop:'50px'}}>
-         <Login />
         </Grid>
 
         <Grid item  md={4}></Grid>
@@ -29,4 +31,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default staticPage;

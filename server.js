@@ -23,7 +23,7 @@ app.prepare().then(() => {
     } else {
       handle(req, res, parsedUrl);
     }
-  }).listen(3000, (err) => {
+  }).listen(80, (err) => {
     if (err) throw err;
     console.log("> Ready on http://localhost:3000");
   });

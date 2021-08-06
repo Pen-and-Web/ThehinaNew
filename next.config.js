@@ -7,4 +7,4 @@ module.exports = {
     env: "production"
   },
   distDir: "build",
-};
+   };
