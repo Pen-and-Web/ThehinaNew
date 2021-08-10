@@ -198,16 +198,18 @@ export default function Dashboard(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Button onClick={() => router.push("/consultation")}>
+          
             <Typography variant="h6" noWrap>
+		<Button onClick={() => router.push("/")}>
               {hide === true ? (
                 <img
                   src="https://thehina.com/assets/img/logo/logo.png"
                   height="40%"
                 />
               ) : null}
+		</Button>
             </Typography>
-          </Button>
+          
 
           {userInfo ? (
             <div>

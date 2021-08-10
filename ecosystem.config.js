@@ -12,7 +12,7 @@ module.exports = {
     watch_options: {
       "followSymlinks": false
     },
-      instances: 5,
+      instances: 1,
       autorestart: false,
       watch: false,
       max_memory_restart: "1G",
