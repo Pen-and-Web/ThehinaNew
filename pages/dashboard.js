@@ -15,13 +15,13 @@ const Home = () => {
     const decoded = jwt_decode(token);
     console.log(decoded, "decoded")
     if(decoded.role === "User"){
-      router.push('/thehina');
+      router.replace('/thehina');
     } else if(decoded.role === "Consultant"){
-      router.push('/consultant');
+      router.replace('/consultant');
     } else if(decoded.role === "Admin"){
-      router.push('/subAdmin');
+      router.replace('/subadmin');
     } else {
-      router.push('/admin');
+      router.replace('/admin');
     }
     return "Loading"
   }
