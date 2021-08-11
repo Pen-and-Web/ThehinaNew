@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Login from "../components/authentication/Login";
@@ -7,13 +7,11 @@ import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 
 const Home = () => {
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
 	const storage = Cookies;
   const token = storage.get('Token');
 
   useEffect(() => {
-    setLoading(false)
     if(token !== undefined && token !== null){
       const decoded = jwt_decode(token);
       console.log(decoded, "decoded")
@@ -26,10 +24,11 @@ const Home = () => {
       } else {
         router.push('/admin');
       }
-      }
+      return "Loading"
+    }
   }, [])
 	  
-  return (loading ? (
+  return (
     <div>
       <Head>
          <title>Thehina</title>
@@ -47,8 +46,7 @@ const Home = () => {
         <Grid item  md={4}></Grid>
       </Grid>
       
-    </div>) :
-    "Loading..."
+    </div>
   );
 };
 
