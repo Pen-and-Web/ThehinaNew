@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Login from "../components/authentication/Login";
@@ -7,26 +7,29 @@ import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 
 const Home = () => {
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 	const storage = Cookies;
   const token = storage.get('Token');
 
-  if(token !== undefined && token !== null){
-    const decoded = jwt_decode(token);
-    console.log(decoded, "decoded")
-    if(decoded.role === "User"){
-      router.replace('/thehina');
-    } else if(decoded.role === "Consultant"){
-      router.replace('/consultant');
-    } else if(decoded.role === "Admin"){
-      router.replace('/subadmin');
-    } else {
-      router.replace('/admin');
-    }
-    return "Loading"
-  }
+  useEffect(() => {
+    setLoading(false)
+    if(token !== undefined && token !== null){
+      const decoded = jwt_decode(token);
+      console.log(decoded, "decoded")
+      if(decoded.role === "User"){
+        router.push('/thehina');
+      } else if(decoded.role === "Consultant"){
+        router.push('/consultant');
+      } else if(decoded.role === "Admin"){
+        router.push('/subadmin');
+      } else {
+        router.push('/admin');
+      }
+      }
+  }, [])
 	  
-  return (
+  return (loading ? (
     <div>
       <Head>
          <title>Thehina</title>
@@ -44,7 +47,8 @@ const Home = () => {
         <Grid item  md={4}></Grid>
       </Grid>
       
-    </div>
+    </div>) :
+    "Loading..."
   );
 };
 
