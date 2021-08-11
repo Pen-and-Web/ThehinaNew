@@ -3,6 +3,7 @@ import { useState,useEffect } from "react";
 import clsx from 'clsx';
 import { makeStyles, useTheme,withStyles } from '@material-ui/core/styles';
 import MuiListItem from "@material-ui/core/ListItem";
+import Button from "@material-ui/core/Button";
 import {List,Toolbar,AppBar,Drawer,CssBaseline,Typography,Divider,IconButton,Menu,Avatar, CircularProgress} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -188,6 +189,7 @@ export default function AdminDashboard(props) {
             </IconButton>
 
             <Typography variant="h6" noWrap>
+                <Button onClick={() => router.push('/')}>
                   {hide===true?
                     <img
                       src="https://thehina.com/assets/img/logo/logo.png"
@@ -195,6 +197,7 @@ export default function AdminDashboard(props) {
                       height="40%"
                     />:
                     null}
+                </Button>
             </Typography>          
 
         <div>

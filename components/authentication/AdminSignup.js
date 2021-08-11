@@ -120,7 +120,7 @@ export const UserSignup = () => {
        setErrorArabicName(true)
      }
      if(!image){
-       setErrorImage(true)
+       setErrorImage(false) // not required
      }
     }
      else{

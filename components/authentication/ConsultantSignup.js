@@ -127,8 +127,7 @@ const ConsultantSignup = () => {
       idType === "" ||
       region === "" ||
       gender === "" ||
-      dateOfBirth === "" ||
-      image === ""
+      dateOfBirth === ""
     ) {
       setDisable(false);
       setLoader(false);
@@ -174,7 +173,7 @@ const ConsultantSignup = () => {
         setErrorGender(true);
       }
       if (!image) {
-        setErrorImage(true);
+        setErrorImage(false); //not required
       }
       if (!region) {
         setErrorRegion(true);

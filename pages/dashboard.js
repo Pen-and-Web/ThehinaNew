@@ -3,9 +3,28 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Login from "../components/authentication/Login";
 import Grid from "@material-ui/core/Grid";
+import jwt_decode from "jwt-decode";
+import Cookies from "js-cookie";
 
 const Home = () => {
-	
+  const router = useRouter();
+	const storage = Cookies;
+  const token = storage.get('Token');
+
+  if(token !== undefined && token !== null){
+    const decoded = jwt_decode(token);
+    console.log(decoded, "decoded")
+    if(decoded.role === "User"){
+      router.push('/thehina');
+    } else if(decoded.role === "Consultant"){
+      router.push('/consultant');
+    } else if(decoded.role === "Admin"){
+      router.push('/subAdmin');
+    } else {
+      router.push('/admin');
+    }
+    return "Loading"
+  }
 	  
   return (
     <div>

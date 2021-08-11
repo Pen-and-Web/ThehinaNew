@@ -76,7 +76,7 @@ export const UserSignup = () => {
     //concatinate country code with phone Number
     phoneNumber=countryCode+phoneNumber;
 
-    if(errorIdNo===true||errorName===true|| errorPhoneNumber===true||  errorEmail===true|| errorPassword===true || errorGender===true || idType==="" ||  idNumber===""|| name===""|| arabicName==="" || email==="" || password===""|| gender==="" ||phoneNumber==="" || region==="" || dateOfBirth==="" || image==="" ){
+    if(errorIdNo===true||errorName===true|| errorPhoneNumber===true||  errorEmail===true|| errorPassword===true || errorGender===true || idType==="" ||  idNumber===""|| name===""|| arabicName==="" || email==="" || password===""|| gender==="" ||phoneNumber==="" || region==="" || dateOfBirth==="" ){
       setLoader(false);
       setBtnDisable(false);
 
@@ -114,7 +114,7 @@ export const UserSignup = () => {
        setErrorArabicName(true)
      }
      if(!image){
-       setErrorImage(true)
+       setErrorImage(false) // not required
      }
     }
      else{

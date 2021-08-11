@@ -9,6 +9,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -210,12 +211,14 @@ export default function ConsultantDashboard(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
+            <Button onClick={() => router.push("/")}> 
             {hide === true ? (
               <img
                 src="https://thehina.com/assets/img/logo/logo.png"
                 height="40%"
               />
             ) : null}
+            </Button>
           </Typography>
 
           {userInfo ? (

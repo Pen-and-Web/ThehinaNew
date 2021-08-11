@@ -3,7 +3,7 @@ import React, { useState,useEffect } from "react";
 import Dashboard from "../../components/user/Dashboard";
 import jwt_decode from "jwt-decode";
 import {parseCookies} from 'nookies'
-import MainLayout from '../../components/Layout'
+// import MainLayout from '../../components/Layout'
 
 const thehina = ({userDetail}) => {
 
