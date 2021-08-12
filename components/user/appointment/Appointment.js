@@ -36,7 +36,7 @@ import Box from '@material-ui/core/Box';
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { FeedbackOutlined } from "@material-ui/icons";
-import { baseURL } from "../../../env";
+import { baseURL, surveyURL } from "../../../env";
 import { CircularProgress } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -209,7 +209,7 @@ const Appointment = () =>{
           </DialogContentText>
           <Box component="fieldset" mb={3} borderColor="transparent">
           <Typography   gutterBottom  >                          
-                <a href="http://206.189.52.233:3000/survey/{appointmentId}">http://206.189.52.233:3000/survey/{appointmentId}</a>
+                <a href={`${surveyURL}/survey/${appointmentId}`}>{surveyURL}/survey/{appointmentId}</a>
           </Typography>
         {/* <Rating
           name="customized-empty"

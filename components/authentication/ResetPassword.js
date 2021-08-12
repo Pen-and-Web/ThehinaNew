@@ -9,6 +9,7 @@ import {baseURL, imgUrl} from '../../env'
 import { useRouter } from "next/router";
 import axios from 'axios'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Alert } from "@material-ui/lab";
 
 const ResetPassword = () => {
   
@@ -17,6 +18,7 @@ const ResetPassword = () => {
     const router = useRouter();
 
   const [email,setEmail] = useState("");
+  const [error,setError] = useState(null);
   const [component,setComponent] = useState("resetPassword")
 
   //otp states
@@ -32,7 +34,7 @@ const ResetPassword = () => {
       }
       axios.patch(baseURL+'/resetPassword',data)
       .then(res=>{setComponent("otp");})
-      .catch(err=>console.log(""))
+      .catch((err)=> setError("No user found against this Email"))
   }
 
   const otpSubmit=()=>{
@@ -73,7 +75,7 @@ const ResetPassword = () => {
             label="Email"
             fullWidth          
             value={email}
-            onChange={(e)=>{setEmail(e.target.value)}}
+            onChange={(e)=>setEmail(e.target.value.toLowerCase())}
             style={{ marginTop: '10px' }}
             size="small"
             variant="outlined"
@@ -101,10 +103,13 @@ const ResetPassword = () => {
           >
             Cancel
           </Button>
-          
          
           </CardActions>
          
+          {error && 
+          <Alert severity="error">
+              {error}
+          </Alert>}
           </Card>
     
     :

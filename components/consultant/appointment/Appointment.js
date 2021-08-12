@@ -33,7 +33,7 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import { withStyles } from '@material-ui/core/styles';
-import {baseURL} from '../../../env'
+import {baseURL, surveyURL} from '../../../env'
 const styles = (theme) => ({
     root: {
       margin: 0,
@@ -157,7 +157,7 @@ const Appointment = () =>{
                           </Typography> 
                           <Typography   gutterBottom  >
                           
-                          <a href="http://206.189.52.233:3000/consultantsurvey/{id}">http://206.189.52.233:3000/consultantsurvey/{id}</a>
+                          <a href={`${surveyURL}/consultantsurvey/${id}`}>{surveyURL}/consultantsurvey/{id}</a>
                           </Typography>
                         {/* <Rating                        
                                value={feedback.stars}
