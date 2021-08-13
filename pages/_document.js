@@ -21,8 +21,8 @@ class MyDocument extends Document {
           <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.js"></script>
 
             {/*Tap Payment */}
-            <script src="http://secure.gosell.io/js/sdk/tap.min.js" />
-            <script src="http://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.4/bluebird.min.js" />
+            <script src="https://secure.gosell.io/js/sdk/tap.min.js" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.4/bluebird.min.js" />
           
         <body style={{backgroundColor:'#F7F8FA'}}>        
           <Main />
