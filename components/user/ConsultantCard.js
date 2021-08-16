@@ -76,7 +76,7 @@ const ConsultantCard = () => {
               data.map((postItem, index) => (
                 <Grid item md={4} key={postItem._id}>
           
-                  <Card elevation={3} style={{ maxWidth: "300px",maxHeight:"550px" }}>
+                  <Card elevation={3} style={{ maxWidth: "250px",maxHeight:"550px" }}>
                   
                     <CardActionArea style={{height: "300px", alignItems: "center"}}>
                       {!postItem.imageUrl?
@@ -94,7 +94,7 @@ const ConsultantCard = () => {
                               />
                           :
                           <img
-                            style={{ maxWidth: "300px", objectFit: "cover" }}
+                            style={{ maxWidth: "250px",maxHeight:"550px", objectFit: "cover" }}
                             src={`${imgUrl}/${postItem.imageUrl}`}
                             title="consult"
                           />
